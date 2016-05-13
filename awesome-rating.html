@@ -1,0 +1,147 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<!--
+An element providing a star rating that allows fractions.
+
+Example 1:
+
+    <awesome-rating value="3.6" read-only="true">
+    </awesome-rating>
+
+Example 2:
+
+    <awesome-rating value="4">
+    </awesome-rating>
+
+@demo demo/index.html
+-->
+<dom-module id="awesome-rating">
+    <template>
+        <style>
+            :host {
+              cursor: default;
+              -webkit-touch-callout: none;
+              -webkit-user-select: none;
+              -khtml-user-select: none;
+              -moz-user-select: none;
+              -ms-user-select: none;
+              user-select: none;
+            }
+
+            .star-wrapper {
+                display: inline-block;
+            }
+
+            .star-wrapper ::content > span {
+              display: inline-block;
+              position: relative;
+              color: #ccd6dd;
+            }
+
+            .star-wrapper ::content > span > span {
+              display: block;
+              position: absolute;
+              top: 0px;
+              bottom: 0px;
+              overflow: hidden;
+              color: #ffac33;
+            }
+
+            /* Select all stars up to the hovered one */
+
+            .star-wrapper[data-read-only=false] ::content > span {
+                cursor: pointer;
+            }
+
+            /* Show all stars */
+            .star-wrapper:hover[data-read-only=false] ::content > span > span {
+                width: 100% !important;
+            }
+
+            /* Hide all after the hovered one */
+            .star-wrapper:hover[data-read-only=false] ::content > span:hover ~ span > span {
+                width: 0% !important;
+            }
+
+        </style>
+        <!-- local DOM goes here -->
+        <div class="star-wrapper" data-read-only$="[[_boolToString(readOnly)]]">
+        <template is="dom-repeat" items="{{_possibleValues}}"><!--
+        --><span on-tap="_starClicked" data-star-id$="{{index}}">&#x2605;<!--
+            --><span style$="width:[[_calculateWidth(index, value)]]">&#x2605;</span><!--
+            --></span><!--
+        --></template>
+        </div>
+    </template>
+
+    <script>
+    Polymer({
+        is: 'awesome-rating',
+        properties: {
+            /**
+            *   Whether the rating should be read-only or clickable.
+            */
+            readOnly: {
+                type: Boolean,
+                value: false,
+            },
+
+            /**
+            *   The maximum number of stars possible.
+            */
+            max: {
+                type: Number,
+                value: 5
+            },
+            /**
+            *   The number of stars that are marked. Can be a float and can show partial stars.
+            */
+            value: {
+                type: Number,
+                value: 0,
+                notify: true,
+                reflectToAttribute: true,
+            },
+
+            _possibleValues: {
+              type: Array,
+              computed: '_computePossibleValues(max)',
+            }
+        },
+        listeners: {
+
+        },
+        ready: function() {
+        },
+        _computePossibleValues: function(max) {
+            values = [];
+            for (var i = 1; i <= max; i++) {
+                values.push(i);
+            }
+            return values;
+        },
+
+        _calculateWidth: function(star, value) {
+            if (value >= star + 1){
+                return "100%";
+            }
+            else if (value - star >= 0) {
+                return (value-star) * 100 + "%";
+            }
+            else return "0%";
+        },
+        _starClicked: function(e) {
+            if (this.readOnly)
+                return;
+
+            var star = parseInt(e.currentTarget.dataset.starId);
+            this.setAttribute('value', star + 1);
+        },
+
+        _boolToString: function(bool) {
+            return bool ? "true" : "false";
+        },
+
+    });
+    </script>
+<dom-module>
