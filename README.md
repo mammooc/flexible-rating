@@ -1,3 +1,3 @@
-# awesome-rating
+# flexible-rating
 
-`awesome-rating` is a Polymer element providing a clickable rating.
+`flexible-rating` is a Polymer element providing a clickable rating.

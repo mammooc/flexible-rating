@@ -5,21 +5,21 @@
     <script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
     <script src="../bower_components/web-component-tester/browser.js"></script>
     <!-- import the element to test -->
-    <link rel="import" href="../awesome-rating.html">
+    <link rel="import" href="../flexible-rating.html">
   </head>
   <body>
     <!-- use the document as a place to set up your fixtures -->
-    <test-fixture id="awesome-rating-fixture">
+    <test-fixture id="flexible-rating-fixture">
       <template>
-        <awesome-rating value="3.6">
-        </awesome-rating>
+        <flexible-rating value="3.6">
+        </flexible-rating>
       </template>
     </test-fixture>
     <script>
-      suite('<awesome-rating>', function() {
+      suite('<flexible-rating>', function() {
         var myEl;
         setup(function() {
-          myEl = fixture('awesome-rating-fixture');
+          myEl = fixture('flexible-rating-fixture');
         });
         test('defines the "value" property', function() {
           assert.equal(myEl.value, 3.6);

@@ -1,5 +1,5 @@
 {
-  "name": "awesome-rating",
+  "name": "flexible-rating",
   "description": "A Polymer element providing a clickable rating.",
   "version": "0.0.1",
   "authors": [
@@ -9,9 +9,9 @@
       "Dominic Sauer",
       "Sebastian Serth"
   ],
-  "main": "awesome-rating.html",
+  "main": "flexible-rating.html",
   "license": "MIT",
-  "homepage": "https://github.com/mammooc/awesome-rating",
+  "homepage": "https://github.com/mammooc/flexible-rating",
   "ignore": [
     "**/.*",
     "node_modules",

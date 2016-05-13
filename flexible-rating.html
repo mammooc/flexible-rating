@@ -5,17 +5,17 @@ An element providing a star rating that allows fractions.
 
 Example 1:
 
-    <awesome-rating value="3.6" read-only="true">
-    </awesome-rating>
+    <flexible-rating value="3.6" read-only="true">
+    </flexible-rating>
 
 Example 2:
 
-    <awesome-rating value="4">
-    </awesome-rating>
+    <flexible-rating value="4">
+    </flexible-rating>
 
 @demo demo/index.html
 -->
-<dom-module id="awesome-rating">
+<dom-module id="flexible-rating">
     <template>
         <style>
             :host {
@@ -76,7 +76,7 @@ Example 2:
 
     <script>
     Polymer({
-        is: 'awesome-rating',
+        is: 'flexible-rating',
         properties: {
             /**
             *   Whether the rating should be read-only or clickable.
