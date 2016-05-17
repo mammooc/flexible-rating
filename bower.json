@@ -1,7 +1,6 @@
 {
   "name": "flexible-rating",
   "description": "A Polymer element providing a clickable rating.",
-  "version": "0.0.1",
   "authors": [
       "Paul Arndt",
       "Rosa Braatz",
