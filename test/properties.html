@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+    <!-- import the element to test -->
+    <link rel="import" href="../flexible-rating.html">
+  </head>
+  <body>
+    <test-fixture id="default">
+      <template>
+        <flexible-rating>
+        </flexible-rating>
+      </template>
+    </test-fixture>
+      <test-fixture id="values">
+        <template>
+          <flexible-rating value="3.6" max="10" read-only>
+          </flexible-rating>
+        </template>
+      </test-fixture>
+    <script>
+      suite('<flexible-rating>', function() {
+        var valuesFixture, defaultFixture;
+        setup(function() {
+          valuesFixture = fixture('values');
+          defaultFixture = fixture('default');
+        });
+        test('defines the "value" property', function() {
+          assert.equal(valuesFixture.value, 3.6);
+        });
+        test('defines the "max" property', function() {
+          assert.equal(valuesFixture.max, 10);
+        });
+        test('defines the "readOnly" property', function() {
+          assert.equal(valuesFixture.readOnly, true);
+        });
+        test('defines the correct default property values', function() {
+            assert.equal(defaultFixture.value, 0);
+            assert.equal(defaultFixture.max, 5);
+            assert.equal(defaultFixture.readOnly, false);
+        });
+      });
+    </script>
+  </body>
+</html>
