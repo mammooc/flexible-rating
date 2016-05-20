@@ -186,7 +186,7 @@
         {
           "browserName": "safari",
           "platform": "OS X 10.10",
-          "version": "7.0"
+          "version": "8.0"
         },
         {
           "browserName": "chrome",
@@ -206,17 +206,17 @@
         {
           "browserName": "firefox",
           "platform": "OS X 10.10",
-          "version": "45.0"
-        },
-        {
-          "browserName": "firefox",
-          "platform": "OS X 10.10",
           "version": "44.0"
         },
         {
           "browserName": "firefox",
           "platform": "OS X 10.10",
           "version": "43.0"
+        },
+        {
+          "browserName": "firefox",
+          "platform": "OS X 10.10",
+          "version": "42.0"
         }
       ]
     }
