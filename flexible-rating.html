@@ -13,6 +13,16 @@ Example 2:
     <flexible-rating value="4">
     </flexible-rating>
 
+### Styling
+
+`<flexible-rating>` provides the following custom properties and mixins
+for styling:
+
+Custom property | Description | Default
+----------------|-------------|----------
+`--rating-filled-color` | Fill color of the selected rating shapes | #ffac33
+`--rating-unfilled-color` | Fill color of remaining rating shapes | #ccd6dd
+
 @demo demo/index.html
 -->
 <dom-module id="flexible-rating">
@@ -44,7 +54,7 @@ Example 2:
               top: 0px;
               bottom: 0px;
               overflow: hidden;
-              color: var(--rating-filled-color, #ffac33); 
+              color: var(--rating-filled-color, #ffac33);
             }
 
             /* Select all stars up to the hovered one */
