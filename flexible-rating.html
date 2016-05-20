@@ -134,7 +134,11 @@ Example 2:
             if (this.readOnly)
                 return;
 
-            var star = parseInt(e.currentTarget.dataset.starId);
+            var star;
+            if (e.currentTarget.dataset !== undefined)
+                star = parseInt(e.currentTarget.dataset.starId);
+            else
+                star = parseInt(e.currentTarget.getAttribute('data-star-id'));
             this.setAttribute('value', star + 1);
         },
 
