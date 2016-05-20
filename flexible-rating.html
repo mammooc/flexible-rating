@@ -35,7 +35,7 @@ Example 2:
             .star-wrapper ::content > span {
               display: inline-block;
               position: relative;
-              color: #ccd6dd;
+              color: var(--rating-unfilled-color, #ccd6dd);
             }
 
             .star-wrapper ::content > span > span {
@@ -44,7 +44,7 @@ Example 2:
               top: 0px;
               bottom: 0px;
               overflow: hidden;
-              color: #ffac33;
+              color: var(--rating-filled-color, #ffac33); 
             }
 
             /* Select all stars up to the hovered one */
