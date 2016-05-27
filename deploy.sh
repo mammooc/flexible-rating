@@ -52,7 +52,7 @@ git config --global user.name "mammooc Bot"
 # send it all to github
 git add -A .
 git commit -am 'Deploy to Github Pages'
-git push -u origin gh-pages --force
+git push -u "https://${GH_TOKEN}@github.com:$org/$repo.git" gh-pages --force
 
 popd >/dev/null
 
