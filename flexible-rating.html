@@ -1,4 +1,6 @@
 <link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-form-element-behavior/iron-form-element-behavior.html">
+<link rel="import" href="../iron-validatable-behavior/iron-validatable-behavior.html">
 
 <!--
 An element providing a star rating that allows fractions.
@@ -67,6 +69,9 @@ Custom property | Description | Default
             .star-wrapper:hover[data-read-only=false] ::content > span > span {
                 width: 100% !important;
             }
+            :host[invalid] {
+              background-color: red;
+            }
 
             /* Hide all after the hovered one */
             .star-wrapper:hover[data-read-only=false] ::content > span:hover ~ span > span {
@@ -87,6 +92,11 @@ Custom property | Description | Default
     <script>
     Polymer({
         is: 'flexible-rating',
+        behaviors:
+          [
+            Polymer.IronFormElementBehavior,
+            Polymer.IronValidatableBehavior,
+          ],
         properties: {
             /**
             *   Whether the rating should be read-only or clickable.
@@ -119,7 +129,16 @@ Custom property | Description | Default
             }
         },
         listeners: {
+          'value-changed': 'validateNotZero',
+        },
+        validateNotZero: function() {
+          if (this.value != 0)
+            this.validate();
+        },
+        _getValidity: function(value) {
+            if (this.value == 0) return false;
 
+            return true;
         },
         ready: function() {
         },

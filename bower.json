@@ -2,11 +2,11 @@
   "name": "flexible-rating",
   "description": "A Polymer element providing a clickable rating.",
   "authors": [
-      "Paul Arndt",
-      "Rosa Braatz",
-      "Philipp Fischbeck",
-      "Dominic Sauer",
-      "Sebastian Serth"
+    "Paul Arndt",
+    "Rosa Braatz",
+    "Philipp Fischbeck",
+    "Dominic Sauer",
+    "Sebastian Serth"
   ],
   "main": "flexible-rating.html",
   "license": "MIT",
@@ -19,14 +19,15 @@
     "tests"
   ],
   "keywords": [
-      "web-components",
-      "web-component",
-      "Polymer",
-      "star",
-      "rating"
+    "web-components",
+    "web-component",
+    "Polymer",
+    "star",
+    "rating"
   ],
   "dependencies": {
-    "polymer": "Polymer/polymer#^1.4.0"
+    "polymer": "Polymer/polymer#^1.4.0",
+    "iron-validatable-behavior": "PolymerElements/iron-validatable-behavior#^1.1.1",
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
