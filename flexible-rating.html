@@ -66,12 +66,12 @@ Custom property | Description | Default
 
             /* Select all stars up to the hovered one */
 
-            .star-wrapper[data-read-only=false] ::content > span {
+            :host:not(:disabled) .star-wrapper:hover ::content > span {
                 cursor: pointer;
             }
 
             /* Show all stars */
-            .star-wrapper:hover[data-read-only=false] ::content > span > span {
+            :host:not(:disabled) .star-wrapper:hover ::content > span > span {
                 width: 100% !important;
             }
 
@@ -86,13 +86,13 @@ Custom property | Description | Default
             }
 
             /* Hide all after the hovered one */
-            .star-wrapper:hover[data-read-only=false] ::content > span:hover ~ span > span {
+            :host:not(:disabled) .star-wrapper:hover ::content > span:hover ~ span > span {
                 width: 0% !important;
             }
 
         </style>
         <!-- local DOM goes here -->
-        <div class="star-wrapper" data-read-only$="[[_boolToString(disabled)]]">
+        <div class="star-wrapper">
         <template is="dom-repeat" items="{{_possibleValues}}"><!--
         --><span on-tap="_starClicked" data-star-id$="{{index}}"><iron-icon icon={{icon}}></iron-icon><!--
         --><span style$="width:[[_calculateWidth(index, value)]]"><iron-icon icon={{icon}}></iron-icon></span><!--
@@ -142,11 +142,6 @@ Custom property | Description | Default
             }
         },
         listeners: {
-          'value-changed': 'validateNotZero',
-        },
-        validateNotZero: function() {
-          if (this.value != 0)
-            this.validate();
         },
         _getValidity: function(value) {
             if (this.value == 0) return false;
@@ -182,10 +177,6 @@ Custom property | Description | Default
             else
                 star = parseInt(e.currentTarget.getAttribute('data-star-id'));
             this.setAttribute('value', star + 1);
-        },
-
-        _boolToString: function(bool) {
-            return bool ? "true" : "false";
         },
 
     });
