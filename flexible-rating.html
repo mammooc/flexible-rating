@@ -1,18 +1,21 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../iron-form-element-behavior/iron-form-element-behavior.html">
 <link rel="import" href="../iron-validatable-behavior/iron-validatable-behavior.html">
+<link rel="import" href="../iron-behaviors/iron-control-state.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+
 
 <!--
 An element providing a star rating that allows fractions.
 
 Example 1:
 
-    <flexible-rating value="3.6" read-only="true">
+    <flexible-rating value="3.6" disabled="true">
     </flexible-rating>
 
 Example 2:
 
-    <flexible-rating value="4">
+    <flexible-rating value="4" icon="icons:favorite">
     </flexible-rating>
 
 ### Styling
@@ -24,6 +27,8 @@ Custom property | Description | Default
 ----------------|-------------|----------
 `--rating-filled-color` | Fill color of the selected rating shapes | #ffac33
 `--rating-unfilled-color` | Fill color of remaining rating shapes | #ccd6dd
+`--iron-icon-height` | height of one icon (e.g. star) |
+`--iron-icon-width` | width of one icon (e.g. star) |
 
 @demo demo/index.html
 -->
@@ -80,10 +85,10 @@ Custom property | Description | Default
 
         </style>
         <!-- local DOM goes here -->
-        <div class="star-wrapper" data-read-only$="[[_boolToString(readOnly)]]">
+        <div class="star-wrapper" data-read-only$="[[_boolToString(disabled)]]">
         <template is="dom-repeat" items="{{_possibleValues}}"><!--
-        --><span on-tap="_starClicked" data-star-id$="{{index}}">&#x2605;<!--
-            --><span style$="width:[[_calculateWidth(index, value)]]">&#x2605;</span><!--
+        --><span on-tap="_starClicked" data-star-id$="{{index}}"><iron-icon icon={{icon}}></iron-icon><!--
+        --><span style$="width:[[_calculateWidth(index, value)]]"><iron-icon icon={{icon}}></iron-icon></span><!--
             --></span><!--
         --></template>
         </div>
@@ -96,6 +101,7 @@ Custom property | Description | Default
           [
             Polymer.IronFormElementBehavior,
             Polymer.IronValidatableBehavior,
+            Polymer.IronControlState,
           ],
         properties: {
             /**
@@ -121,6 +127,14 @@ Custom property | Description | Default
                 value: 0,
                 notify: true,
                 reflectToAttribute: true,
+            },
+
+            /**
+            *   The name of the iron icon element
+            **/
+            icon: {
+              type: String,
+              value: "icons:star",
             },
 
             _possibleValues: {
@@ -160,7 +174,7 @@ Custom property | Description | Default
             else return "0%";
         },
         _starClicked: function(e) {
-            if (this.readOnly)
+            if (this.disabled)
                 return;
 
             var star;

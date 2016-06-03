@@ -4,15 +4,28 @@
         <script src="../../webcomponentsjs/webcomponents-lite.min.js"></script>
         <link rel="import" href="../flexible-rating.html">
         <link rel="import" href="../../polymer/polymer.html">
+        <style is="custom-style">
+
+          :root {
+
+          }
+
+          #read-only {
+            --rating-filled-color: red;
+            --iron-icon-height: 60px;
+            --iron-icon-width: 60px;
+          }
+
+        </style>
     </head>
     <body>
         Read-only: <br />
-        <flexible-rating value="3.6" read-only="true"></flexible-rating>
+        <flexible-rating value="3.6" disabled icon="icons:rowing" id="read-only"></flexible-rating>
         <br />
         Editable: <br />
         <flexible-rating value="2"></flexible-rating>
         <br />
-        <flexible-rating></flexible-rating>
+        <flexible-rating icon="icons:favorite"></flexible-rating>
 
     </body>
 
