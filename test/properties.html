@@ -16,7 +16,7 @@
     </test-fixture>
       <test-fixture id="values">
         <template>
-          <flexible-rating value="3.6" max="10" read-only>
+          <flexible-rating value="3.6" max="10" disabled>
           </flexible-rating>
         </template>
       </test-fixture>
@@ -33,13 +33,13 @@
         test('defines the "max" property', function() {
           assert.equal(valuesFixture.max, 10);
         });
-        test('defines the "readOnly" property', function() {
-          assert.equal(valuesFixture.readOnly, true);
+        test('defines the "disabled" property', function() {
+          assert.equal(valuesFixture.disabled, true);
         });
         test('defines the correct default property values', function() {
             assert.equal(defaultFixture.value, 0);
             assert.equal(defaultFixture.max, 5);
-            assert.equal(defaultFixture.readOnly, false);
+            assert.equal(defaultFixture.disabled, false);
         });
       });
     </script>

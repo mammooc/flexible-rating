@@ -16,7 +16,7 @@
             }
         </style>
         <template>
-          <flexible-rating value="2.6" max="4" read-only>
+          <flexible-rating value="2.6" max="4" disabled>
           </flexible-rating>
         </template>
       </test-fixture>
@@ -24,7 +24,7 @@
       suite('<flexible-rating>', function() {
         assertStarFill = function(star, ratio) {
             var totalStarWidth = parseFloat(getComputedStyle(star).getPropertyValue('width'));
-            var fillStarWidth = parseFloat(getComputedStyle(star.children[0]).getPropertyValue('width'));
+            var fillStarWidth = parseFloat(getComputedStyle(star.children[1]).getPropertyValue('width'));
             assert.closeTo(fillStarWidth / totalStarWidth, ratio, 0.001);
         }
 
@@ -56,7 +56,7 @@
                   var star = stars[i];
                   var unfilledColor = getComputedStyle(star).getPropertyValue('color');
                   assert.equal(unfilledColor, 'rgb(60, 80, 100)');
-                  var filledColor = getComputedStyle(star.children[0]).getPropertyValue('color');
+                  var filledColor = getComputedStyle(star.children[1]).getPropertyValue('color');
                   assert.equal(filledColor, 'rgb(0, 20, 40)');
               }
               done();
