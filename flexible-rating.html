@@ -74,8 +74,15 @@ Custom property | Description | Default
             .star-wrapper:hover[data-read-only=false] ::content > span > span {
                 width: 100% !important;
             }
-            :host[invalid] {
-              background-color: red;
+
+            @keyframes invalid {
+                from {color: red;}
+                to {color: var(--rating-unfilled-color, #ffac33);}
+            }
+
+            :host[invalid] .star-wrapper ::content > span {
+              animation-name: invalid;
+              animation-duration: 1s;
             }
 
             /* Hide all after the hovered one */
