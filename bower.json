@@ -28,7 +28,9 @@
   "dependencies": {
     "polymer": "Polymer/polymer#^1.4.0",
     "iron-validatable-behavior": "PolymerElements/iron-validatable-behavior#^1.1.1",
-    "iron-behaviors": "PolymerElements/iron-behaviors#^1.0.16"
+    "iron-behaviors": "PolymerElements/iron-behaviors#^1.0.16",
+    "iron-icon": "PolymerElements/iron-icon#^1.0.8",
+    "iron-icons": "PolymerElements/iron-icons#^1.1.3"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
