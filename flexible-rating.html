@@ -1,6 +1,7 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../iron-form-element-behavior/iron-form-element-behavior.html">
 <link rel="import" href="../iron-validatable-behavior/iron-validatable-behavior.html">
+<link rel="import" href="../iron-a11y-keys-behavior/iron-a11y-keys-behavior.html">
 <link rel="import" href="../iron-behaviors/iron-control-state.html">
 <link rel="import" href="../iron-icons/iron-icons.html">
 
@@ -80,14 +81,8 @@ Custom property | Description | Default
                 width: 100% !important;
             }
 
-            @keyframes invalid {
-                from {color: red;}
-                to {color: var(--rating-unfilled-color, #ffac33);}
-            }
-
-            :host[invalid] .star-wrapper ::content > span {
-              animation-name: invalid;
-              animation-duration: 1s;
+            :host[invalid] {
+              outline: red auto 5px;
             }
 
             /* Hide all after the hovered one */
@@ -118,15 +113,21 @@ Custom property | Description | Default
           [
             Polymer.IronFormElementBehavior,
             Polymer.IronValidatableBehavior,
+            Polymer.IronA11yKeysBehavior,
             Polymer.IronControlState,
           ],
+        keyBindings: {
+            'left down pagedown home': '_decrementKey',
+            'right up pageup end': '_incrementKey'
+        },
         properties: {
             /**
             *   The maximum number of stars possible.
             */
             max: {
                 type: Number,
-                value: 5
+                value: 5,
+                notify: true,
             },
             /**
             *   The number of stars that are marked. Can be a float and can show partial stars.
@@ -151,7 +152,49 @@ Custom property | Description | Default
               computed: '_computePossibleValues(max)',
             }
         },
-        listeners: {
+        observers: [
+            '_updateAria(value, max)'
+        ],
+        _updateAria: function(value, max) {
+            this.setAttribute('aria-valuemin', 1);
+            this.setAttribute('aria-valuemax', max);
+            this.setAttribute('aria-valuenow', value);
+        },
+        _updateValue: function(value) {
+            if (value < 1)
+                value = 1;
+            if (value > this.max)
+                value = this.max;
+
+            this.setAttribute('value', value);
+        },
+
+        _increment: function() {
+          this._updateValue(Math.floor(this.value) + 1);
+        },
+
+        _decrement: function() {
+            this._updateValue(Math.ceil(this.value) - 1);
+        },
+        _incrementKey: function(event) {
+          if (!this.disabled) {
+            event.detail.keyboardEvent.preventDefault();
+            if (event.detail.key === 'end') {
+              this._updateValue(this.max);
+            } else {
+              this._increment();
+            }
+          }
+        },
+        _decrementKey: function(event) {
+          if (!this.disabled) {
+            event.detail.keyboardEvent.preventDefault();
+            if (event.detail.key === 'home') {
+              this._updateValue(1);
+            } else {
+              this._decrement();
+            }
+          }
         },
         _getValidity: function(value) {
             if (this.value == 0) return false;
@@ -186,7 +229,7 @@ Custom property | Description | Default
                 star = parseInt(e.currentTarget.dataset.starId);
             else
                 star = parseInt(e.currentTarget.getAttribute('data-star-id'));
-            this.setAttribute('value', star + 1);
+            this._updateValue(star + 1);
         },
 
     });
