@@ -43,6 +43,11 @@ Custom property | Description | Default
               -moz-user-select: none;
               -ms-user-select: none;
               user-select: none;
+              display: inline-block;
+            }
+
+            :host:focus {
+                outline-color: var(--rating-filled-color, #ffac33);
             }
 
             .star-wrapper {
@@ -104,6 +109,11 @@ Custom property | Description | Default
     <script>
     Polymer({
         is: 'flexible-rating',
+        hostAttributes: {
+            role: 'slider',
+            tabindex: 0,
+            'aria-hidden': 'true'
+        },
         behaviors:
           [
             Polymer.IronFormElementBehavior,
