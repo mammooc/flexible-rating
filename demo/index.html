@@ -4,29 +4,66 @@
         <script src="../../webcomponentsjs/webcomponents-lite.min.js"></script>
         <link rel="import" href="../flexible-rating.html">
         <link rel="import" href="../../polymer/polymer.html">
-        <style is="custom-style">
-
-          :root {
-
-          }
-
-          #read-only {
-            --rating-filled-color: red;
-            --iron-icon-height: 60px;
-            --iron-icon-width: 60px;
-          }
-
-        </style>
+        <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
+        <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
+        <style is="custom-style" include="demo-pages-shared-styles">
+            .vertical-section-container {
+              max-width: 500px;
+            }
+          </style>
     </head>
     <body>
-        Read-only: <br />
-        <flexible-rating value="3.6" disabled icon="icons:rowing" id="read-only"></flexible-rating>
-        <br />
-        Editable: <br />
-        <flexible-rating value="2"></flexible-rating>
-        <br />
-        <flexible-rating icon="icons:favorite"></flexible-rating>
+        <div class="vertical-section-container centered">
+            <h4>A disabled rating</h4>
+            <demo-snippet class="centered-demo">
+                  <template>
+                    <flexible-rating value="3.6" disabled>
+                    </flexible-rating>
+                  </template>
+            </demo-snippet>
+            <h4>An editable rating</h4>
+            <demo-snippet class="centered-demo">
+                  <template>
+                    <flexible-rating>
+                    </flexible-rating>
+                  </template>
+            </demo-snippet>
+            <h4>A rating with a custom icon</h4>
+            <demo-snippet class="centered-demo">
+                  <template>
+                    <flexible-rating icon="icons:favorite">
+                    </flexible-rating>
+                  </template>
+            </demo-snippet>
+            <h4>A rating with custom colors</h4>
+            <demo-snippet class="centered-demo">
+                  <template>
+                    <style is="custom-style">
+                        flexible-rating.customColors {
+                            --rating-filled-color: green;
+                            --rating-unfilled-color: lightgreen;
+                        }
+                    </style>
 
+                    <flexible-rating class="customColors" value="3.6" disabled>
+                    </flexible-rating>
+                  </template>
+            </demo-snippet>
+            <h4>A rating with custom size</h4>
+            <demo-snippet class="centered-demo">
+                  <template>
+                    <style is="custom-style">
+                        flexible-rating.customSize {
+                            --iron-icon-height: 50px;
+                            --iron-icon-width: 50px;
+                        }
+                    </style>
+
+                    <flexible-rating class="customSize" value="3.6" disabled>
+                    </flexible-rating>
+                  </template>
+            </demo-snippet>
+        </div>
     </body>
 
 
