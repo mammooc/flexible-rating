@@ -1,16 +1,22 @@
 <link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-form-element-behavior/iron-form-element-behavior.html">
+<link rel="import" href="../iron-validatable-behavior/iron-validatable-behavior.html">
+<link rel="import" href="../iron-a11y-keys-behavior/iron-a11y-keys-behavior.html">
+<link rel="import" href="../iron-behaviors/iron-control-state.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+
 
 <!--
 An element providing a star rating that allows fractions.
 
 Example 1:
 
-    <flexible-rating value="3.6" read-only="true">
+    <flexible-rating value="3.6" disabled="true">
     </flexible-rating>
 
 Example 2:
 
-    <flexible-rating value="4">
+    <flexible-rating value="4" icon="icons:favorite">
     </flexible-rating>
 
 ### Styling
@@ -22,6 +28,8 @@ Custom property | Description | Default
 ----------------|-------------|----------
 `--rating-filled-color` | Fill color of the selected rating shapes | #ffac33
 `--rating-unfilled-color` | Fill color of remaining rating shapes | #ccd6dd
+`--iron-icon-height` | height of one icon (e.g. star) |
+`--iron-icon-width` | width of one icon (e.g. star) |
 
 @demo demo/index.html
 -->
@@ -36,6 +44,11 @@ Custom property | Description | Default
               -moz-user-select: none;
               -ms-user-select: none;
               user-select: none;
+              display: inline-block;
+            }
+
+            :host:focus {
+                outline-color: var(--rating-filled-color, #ffac33);
             }
 
             .star-wrapper {
@@ -59,26 +72,30 @@ Custom property | Description | Default
 
             /* Select all stars up to the hovered one */
 
-            .star-wrapper[data-read-only=false] ::content > span {
+            :host:not(:disabled) .star-wrapper:hover ::content > span {
                 cursor: pointer;
             }
 
             /* Show all stars */
-            .star-wrapper:hover[data-read-only=false] ::content > span > span {
+            :host:not(:disabled) .star-wrapper:hover ::content > span > span {
                 width: 100% !important;
             }
 
+            :host[invalid] {
+              outline: red auto 5px;
+            }
+
             /* Hide all after the hovered one */
-            .star-wrapper:hover[data-read-only=false] ::content > span:hover ~ span > span {
+            :host:not(:disabled) .star-wrapper:hover ::content > span:hover ~ span > span {
                 width: 0% !important;
             }
 
         </style>
         <!-- local DOM goes here -->
-        <div class="star-wrapper" data-read-only$="[[_boolToString(readOnly)]]">
+        <div class="star-wrapper">
         <template is="dom-repeat" items="{{_possibleValues}}"><!--
-        --><span on-tap="_starClicked" data-star-id$="{{index}}">&#x2605;<!--
-            --><span style$="width:[[_calculateWidth(index, value)]]">&#x2605;</span><!--
+        --><span on-tap="_starClicked" data-star-id$="{{index}}"><iron-icon icon={{icon}}></iron-icon><!--
+        --><span style$="width:[[_calculateWidth(index, value)]]"><iron-icon icon={{icon}}></iron-icon></span><!--
             --></span><!--
         --></template>
         </div>
@@ -87,21 +104,30 @@ Custom property | Description | Default
     <script>
     Polymer({
         is: 'flexible-rating',
+        hostAttributes: {
+            role: 'slider',
+            tabindex: 0,
+            'aria-hidden': 'true'
+        },
+        behaviors:
+          [
+            Polymer.IronFormElementBehavior,
+            Polymer.IronValidatableBehavior,
+            Polymer.IronA11yKeysBehavior,
+            Polymer.IronControlState,
+          ],
+        keyBindings: {
+            'left down pagedown home': '_decrementKey',
+            'right up pageup end': '_incrementKey'
+        },
         properties: {
-            /**
-            *   Whether the rating should be read-only or clickable.
-            */
-            readOnly: {
-                type: Boolean,
-                value: false,
-            },
-
             /**
             *   The maximum number of stars possible.
             */
             max: {
                 type: Number,
-                value: 5
+                value: 5,
+                notify: true,
             },
             /**
             *   The number of stars that are marked. Can be a float and can show partial stars.
@@ -113,13 +139,67 @@ Custom property | Description | Default
                 reflectToAttribute: true,
             },
 
+            /**
+            *   The name of the iron icon element
+            **/
+            icon: {
+              type: String,
+              value: "icons:star",
+            },
+
             _possibleValues: {
               type: Array,
               computed: '_computePossibleValues(max)',
             }
         },
-        listeners: {
+        observers: [
+            '_updateAria(value, max)'
+        ],
+        _updateAria: function(value, max) {
+            this.setAttribute('aria-valuemin', 1);
+            this.setAttribute('aria-valuemax', max);
+            this.setAttribute('aria-valuenow', value);
+        },
+        _updateValue: function(value) {
+            if (value < 1)
+                value = 1;
+            if (value > this.max)
+                value = this.max;
 
+            this.setAttribute('value', value);
+        },
+
+        _increment: function() {
+          this._updateValue(Math.floor(this.value) + 1);
+        },
+
+        _decrement: function() {
+            this._updateValue(Math.ceil(this.value) - 1);
+        },
+        _incrementKey: function(event) {
+          if (!this.disabled) {
+            event.detail.keyboardEvent.preventDefault();
+            if (event.detail.key === 'end') {
+              this._updateValue(this.max);
+            } else {
+              this._increment();
+            }
+          }
+        },
+        _decrementKey: function(event) {
+          if (!this.disabled) {
+            event.detail.keyboardEvent.preventDefault();
+            if (event.detail.key === 'home') {
+              this._updateValue(1);
+            } else {
+              this._decrement();
+            }
+          }
+        },
+        _getValidity: function(value) {
+            if (this.value == 0) return false;
+
+            return true;
         },
         ready: function() {
         },
@@ -141,7 +221,7 @@ Custom property | Description | Default
             else return "0%";
         },
         _starClicked: function(e) {
-            if (this.readOnly)
+            if (this.disabled)
                 return;
 
             var star;
@@ -149,11 +229,7 @@ Custom property | Description | Default
                 star = parseInt(e.currentTarget.dataset.starId);
             else
                 star = parseInt(e.currentTarget.getAttribute('data-star-id'));
-            this.setAttribute('value', star + 1);
-        },
-
-        _boolToString: function(bool) {
-            return bool ? "true" : "false";
+            this._updateValue(star + 1);
         },
 
     });

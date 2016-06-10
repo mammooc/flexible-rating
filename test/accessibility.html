@@ -1,0 +1,124 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+    <script src="../../iron-test-helpers/mock-interactions.js"></script>
+    <!-- import the element to test -->
+    <link rel="import" href="../flexible-rating.html">
+  </head>
+  <body>
+      <test-fixture id="normal">
+        <template>
+          <flexible-rating value="3.6" max="10">
+          </flexible-rating>
+        </template>
+      </test-fixture>
+      <test-fixture id="disabled">
+        <template>
+          <flexible-rating value="3.6" max="10" disabled>
+          </flexible-rating>
+        </template>
+      </test-fixture>
+    <script>
+      suite('<flexible-rating>', function() {
+          a11ySuite('normal');
+          a11ySuite('disabled');
+
+      var normal, disabled;
+      setup(function() {
+         normal = fixture('normal');
+         disabled = fixture('disabled');
+      });
+      test('has aria role "slider"', function(done) {
+          flush(function() {
+            assert.equal(normal.getAttribute('role'), 'slider');
+            assert.equal(normal.getAttribute('aria-valuemin'), 1);
+            assert.equal(normal.getAttribute('aria-valuemax'), normal.max);
+            assert.equal(normal.getAttribute('aria-valuenow'), normal.value);
+            normal.value = 5;
+            assert.equal(normal.getAttribute('aria-valuenow'), 5);
+            done();
+          });
+        });
+        test('can be focused', function(done) {
+            flush(function() {
+                MockInteractions.focus(normal);
+                assert.isTrue(normal.focused);
+                done();
+            });
+        });
+/*
+        test('can not be focused when disabled', function(done) {
+            flush(function() {
+                MockInteractions.focus(disabled);
+                assert.isFalse(disabled.focused);
+                done();
+            });
+        });
+*/
+        test('can not be changed with the keyboard when disabled', function() {
+          MockInteractions.focus(disabled);
+          // Right
+          MockInteractions.pressAndReleaseKeyOn(disabled, 39);
+          assert.equal(disabled.value, 3.6);
+          // Up
+          MockInteractions.pressAndReleaseKeyOn(disabled, 38);
+          assert.equal(disabled.value, 3.6);
+          // Left
+          MockInteractions.pressAndReleaseKeyOn(disabled, 37);
+          assert.equal(disabled.value, 3.6);
+          // Down
+          MockInteractions.pressAndReleaseKeyOn(disabled, 40);
+          assert.equal(disabled.value, 3.6);
+          // End
+          MockInteractions.pressAndReleaseKeyOn(disabled, 35);
+          assert.equal(disabled.value, 3.6);
+          // Home
+          MockInteractions.pressAndReleaseKeyOn(disabled, 36);
+          assert.equal(disabled.value, 3.6);
+        });
+
+        test('can be changed with the keyboard', function() {
+          MockInteractions.focus(normal);
+          // Right
+          MockInteractions.pressAndReleaseKeyOn(normal, 39);
+          assert.equal(normal.value, 4);
+          // Up
+          MockInteractions.pressAndReleaseKeyOn(normal, 38);
+          assert.equal(normal.value, 5);
+          // Left
+          MockInteractions.pressAndReleaseKeyOn(normal, 37);
+          assert.equal(normal.value, 4);
+          // Down
+          MockInteractions.pressAndReleaseKeyOn(normal, 40);
+          assert.equal(normal.value, 3);
+          // End
+          MockInteractions.pressAndReleaseKeyOn(normal, 35);
+          assert.equal(normal.value, 10);
+          // Home
+          MockInteractions.pressAndReleaseKeyOn(normal, 36);
+          assert.equal(normal.value, 1);
+
+        });
+        test('can not be changed out of range with the keyboard', function() {
+          MockInteractions.focus(normal);
+          
+          // Home
+          MockInteractions.pressAndReleaseKeyOn(normal, 36);
+          // Left
+          MockInteractions.pressAndReleaseKeyOn(normal, 37);
+          assert.equal(normal.value, 1);
+
+          // End
+          MockInteractions.pressAndReleaseKeyOn(normal, 35);
+           // Right
+          MockInteractions.pressAndReleaseKeyOn(normal, 39);
+          assert.equal(normal.value, 10);
+          
+        });
+      });
+    </script>
+  </body>
+</html>
