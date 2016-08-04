@@ -26,8 +26,8 @@ for styling:
 
 Custom property | Description | Default
 ----------------|-------------|----------
-`--rating-filled-color` | Fill color of the selected rating shapes | #ffac33
-`--rating-unfilled-color` | Fill color of remaining rating shapes | #ccd6dd
+`--flexible-rating-filled-color` | Fill color of the selected rating shapes | #ffac33
+`--flexible-rating-unfilled-color` | Fill color of remaining rating shapes | #ccd6dd
 `--iron-icon-height` | height of one icon (e.g. star) |
 `--iron-icon-width` | width of one icon (e.g. star) |
 
@@ -48,7 +48,7 @@ Custom property | Description | Default
             }
 
             :host:focus {
-                outline-color: var(--rating-filled-color, #ffac33);
+                outline-color: var(--flexible-rating-filled-color, #ffac33);
             }
 
             .star-wrapper {
@@ -58,7 +58,7 @@ Custom property | Description | Default
             .star-wrapper ::content > span {
               display: inline-block;
               position: relative;
-              color: var(--rating-unfilled-color, #ccd6dd);
+              color: var(--flexible-rating-unfilled-color, #ccd6dd);
             }
 
             .star-wrapper ::content > span > span {
@@ -67,7 +67,7 @@ Custom property | Description | Default
               top: 0px;
               bottom: 0px;
               overflow: hidden;
-              color: var(--rating-filled-color, #ffac33);
+              color: var(--flexible-rating-filled-color, #ffac33);
             }
 
             /* Select all stars up to the hovered one */
@@ -109,6 +109,10 @@ Custom property | Description | Default
             tabindex: 0,
             'aria-hidden': 'true'
         },
+        keyBindings: {
+            'left down pagedown home': '_decrementKey',
+            'right up pageup end': '_incrementKey'
+        },
         behaviors:
           [
             Polymer.IronFormElementBehavior,
@@ -116,10 +120,7 @@ Custom property | Description | Default
             Polymer.IronA11yKeysBehavior,
             Polymer.IronControlState,
           ],
-        keyBindings: {
-            'left down pagedown home': '_decrementKey',
-            'right up pageup end': '_incrementKey'
-        },
+        
         properties: {
             /**
             *   The maximum number of stars possible.
@@ -129,6 +130,7 @@ Custom property | Description | Default
                 value: 5,
                 notify: true,
             },
+
             /**
             *   The number of stars that are marked. Can be a float and can show partial stars.
             */
@@ -168,11 +170,9 @@ Custom property | Description | Default
 
             this.setAttribute('value', value);
         },
-
         _increment: function() {
           this._updateValue(Math.floor(this.value) + 1);
         },
-
         _decrement: function() {
             this._updateValue(Math.ceil(this.value) - 1);
         },
@@ -210,7 +210,6 @@ Custom property | Description | Default
             }
             return values;
         },
-
         _calculateWidth: function(star, value) {
             if (value >= star + 1){
                 return "100%";
