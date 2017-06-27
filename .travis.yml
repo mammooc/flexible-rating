@@ -13,8 +13,9 @@ addons:
 before_script:
 - npm install -g bower polylint web-component-tester
 - bower install
-- if [ "${TRAVIS_PULL_REQUEST}" != "false" ] || [ "${TRAVIS_BRANCH}" = "master" ];
-  then polylint; fi
+# Pause Polylint due to https://github.com/PolymerElements/iron-icon/issues/83
+# - if [ "${TRAVIS_PULL_REQUEST}" != "false" ] || [ "${TRAVIS_BRANCH}" = "master" ];
+#   then polylint; fi
 script:
 - xvfb-run wct
 env:

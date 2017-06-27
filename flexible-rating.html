@@ -64,8 +64,8 @@ Custom property | Description | Default
             .star-wrapper ::content > span > span {
               display: block;
               position: absolute;
-              top: 0px;
-              bottom: 0px;
+              top: 0;
+              bottom: 0;
               overflow: hidden;
               color: var(--flexible-rating-filled-color, #ffac33);
             }
@@ -87,7 +87,7 @@ Custom property | Description | Default
 
             /* Hide all after the hovered one */
             :host:not(:disabled) .star-wrapper:hover ::content > span:hover ~ span > span {
-                width: 0% !important;
+                width: 0 !important;
             }
 
         </style>
@@ -118,7 +118,7 @@ Custom property | Description | Default
             Polymer.IronFormElementBehavior,
             Polymer.IronValidatableBehavior,
             Polymer.IronA11yKeysBehavior,
-            Polymer.IronControlState,
+            Polymer.IronControlState
           ],
         
         properties: {
@@ -128,7 +128,7 @@ Custom property | Description | Default
             max: {
                 type: Number,
                 value: 5,
-                notify: true,
+                notify: true
             },
 
             /**
@@ -138,7 +138,7 @@ Custom property | Description | Default
                 type: Number,
                 value: 0,
                 notify: true,
-                reflectToAttribute: true,
+                reflectToAttribute: true
             },
 
             /**
@@ -146,12 +146,12 @@ Custom property | Description | Default
             **/
             icon: {
               type: String,
-              value: "icons:star",
+              value: "icons:star"
             },
 
             _possibleValues: {
               type: Array,
-              computed: '_computePossibleValues(max)',
+              computed: '_computePossibleValues(max)'
             }
         },
         observers: [
@@ -197,9 +197,9 @@ Custom property | Description | Default
           }
         },
         _getValidity: function(value) {
-            if (this.value == 0) return false;
+            return this.value !== 0;
 
-            return true;
+
         },
         ready: function() {
         },
@@ -229,8 +229,8 @@ Custom property | Description | Default
             else
                 star = parseInt(e.currentTarget.getAttribute('data-star-id'));
             this._updateValue(star + 1);
-        },
+        }
 
     });
     </script>
-<dom-module>
+</dom-module>
