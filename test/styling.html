@@ -9,19 +9,24 @@
   </head>
   <body>
       <test-fixture id="values">
+        <!-- Usually, we recommend using this custom-style option to pass custom colors to the component.
+             Unfortunately, the WCT has problems running this test in a series with the others and (when executed
+             with others) this test fails. Running this test alone will work. -->
+        <!--
+        <custom-sytle>
+          <style>
+            html {
+              --flexible-rating-filled-color: rgb(0, 20, 40);
+              --flexible-rating-unfilled-color: rgb(60, 80, 100);
+            }
+          </style>
+        </custom-sytle>
+        -->
         <template>
-          <div>
-            <custom-sytle>
-              <style>
-                html {
-                  --flexible-rating-filled-color: rgb(0, 20, 40);
-                  --flexible-rating-unfilled-color: rgb(60, 80, 100);
-                }
-              </style>
-            </custom-sytle>
-            <flexible-rating value="2.6" max="4" disabled>
-            </flexible-rating>
-          </div>
+          <flexible-rating value="2.6" max="4" disabled
+                           style="--flexible-rating-filled-color: rgb(0, 20, 40);
+                                  --flexible-rating-unfilled-color: rgb(60, 80, 100);">
+          </flexible-rating>
         </template>
       </test-fixture>
     <script>
@@ -34,7 +39,7 @@
 
         var valuesFixture;
         setup(function() {
-          valuesFixture = fixture('values').querySelector('flexible-rating');
+          valuesFixture = fixture('values');
         });
         test("has 'max' stars", function(done) {
           flush(function() {
