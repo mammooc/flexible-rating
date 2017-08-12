@@ -34,9 +34,9 @@
             });
             test('changes the displayed stars', function(done) {
               flush(function() {
-                  var stars = Polymer.dom(editableFixture.root).querySelectorAll('.star-wrapper > span');
+                  var stars = editableFixture.root.querySelectorAll('.star-wrapper > span');
                   // Hover over third star
-                  Polymer.dom(editableFixture.root).querySelector('.star-wrapper').dispatchEvent(new MouseEvent('mouseover'));
+                  editableFixture.root.querySelector('.star-wrapper').dispatchEvent(new MouseEvent('mouseover'));
                   stars[2].dispatchEvent(new MouseEvent('mouseover'));
                   assert.equal(getComputedStyle(stars[0].children[0]).getPropertyValue('width'), "100%");
                   done();
@@ -54,7 +54,7 @@
               });
               test("doesn't change the value for read-only elements", function(done) {
                   flush(function() {
-                      var stars = Polymer.dom(readOnlyFixture.root).querySelectorAll('.star-wrapper > span');
+                      var stars = readOnlyFixture.root.querySelectorAll('.star-wrapper > span');
                       MockInteractions.tap(stars[2]);
                       assert.equal(readOnlyFixture.value, 3.6);
                       done();
@@ -62,7 +62,7 @@
               });
               test("changes the value", function(done) {
                 flush(function() {
-                    var stars = Polymer.dom(editableFixture.root).querySelectorAll('.star-wrapper > span');
+                    var stars = editableFixture.root.querySelectorAll('.star-wrapper > span');
                     MockInteractions.tap(stars[2]);
                     assert.equal(editableFixture.value, 3);
                     done();

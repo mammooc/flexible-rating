@@ -9,15 +9,19 @@
   </head>
   <body>
       <test-fixture id="values">
-        <style is="custom-style">
-            :root {
-                --flexible-rating-filled-color: rgb(0, 20, 40);
-                --flexible-rating-unfilled-color: rgb(60, 80, 100);
-            }
-        </style>
         <template>
-          <flexible-rating value="2.6" max="4" disabled>
-          </flexible-rating>
+          <div>
+            <custom-sytle>
+              <style>
+                html {
+                  --flexible-rating-filled-color: rgb(0, 20, 40);
+                  --flexible-rating-unfilled-color: rgb(60, 80, 100);
+                }
+              </style>
+            </custom-sytle>
+            <flexible-rating value="2.6" max="4" disabled>
+            </flexible-rating>
+          </div>
         </template>
       </test-fixture>
     <script>
@@ -26,22 +30,22 @@
             var totalStarWidth = parseFloat(getComputedStyle(star).getPropertyValue('width'));
             var fillStarWidth = parseFloat(getComputedStyle(star.children[1]).getPropertyValue('width'));
             assert.closeTo(fillStarWidth / totalStarWidth, ratio, 0.001);
-        }
+        };
 
         var valuesFixture;
         setup(function() {
-          valuesFixture = fixture('values');
+          valuesFixture = fixture('values').querySelector('flexible-rating');
         });
         test("has 'max' stars", function(done) {
           flush(function() {
-              var stars = Polymer.dom(valuesFixture.root).querySelectorAll('.star-wrapper > span');
+              var stars = valuesFixture.root.querySelectorAll('.star-wrapper > span');
               assert.equal(stars.length, 4);
               done();
           });
         });
         test("shows 'value' amount of filled stars", function(done) {
           flush(function() {
-              var stars = Polymer.dom(valuesFixture.root).querySelectorAll('.star-wrapper > span');
+              var stars = valuesFixture.root.querySelectorAll('.star-wrapper > span');
               assertStarFill(stars[0], 1);
               assertStarFill(stars[1], 1);
               assertStarFill(stars[2], 0.6);
@@ -51,7 +55,7 @@
         });
         test("has correct style attributes", function(done) {
           flush(function() {
-              var stars = Polymer.dom(valuesFixture.root).querySelectorAll('.star-wrapper > span');
+              var stars = valuesFixture.root.querySelectorAll('.star-wrapper > span');
               for (var i = 0; i < stars.length; i++) {
                   var star = stars[i];
                   var unfilledColor = getComputedStyle(star).getPropertyValue('color');
