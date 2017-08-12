@@ -1,4 +1,7 @@
-<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../polymer/polymer-element.html">
+<link rel="import" href="../polymer/lib/elements/dom-repeat.html">
+<link rel="import" href="../polymer/lib/elements/custom-style.html">
+
 <link rel="import" href="../iron-form-element-behavior/iron-form-element-behavior.html">
 <link rel="import" href="../iron-validatable-behavior/iron-validatable-behavior.html">
 <link rel="import" href="../iron-a11y-keys-behavior/iron-a11y-keys-behavior.html">
@@ -47,7 +50,7 @@ Custom property | Description | Default
               display: inline-block;
             }
 
-            :host:focus {
+            :host(:focus) {
                 outline-color: var(--flexible-rating-filled-color, #ffac33);
             }
 
@@ -55,13 +58,13 @@ Custom property | Description | Default
                 display: inline-block;
             }
 
-            .star-wrapper ::content > span {
+            .star-wrapper > span {
               display: inline-block;
               position: relative;
               color: var(--flexible-rating-unfilled-color, #ccd6dd);
             }
 
-            .star-wrapper ::content > span > span {
+            .star-wrapper > span > span {
               display: block;
               position: absolute;
               top: 0;
@@ -72,165 +75,191 @@ Custom property | Description | Default
 
             /* Select all stars up to the hovered one */
 
-            :host:not(:disabled) .star-wrapper:hover ::content > span {
+            :host(:not([disabled])) .star-wrapper:hover > span{
                 cursor: pointer;
             }
 
             /* Show all stars */
-            :host:not(:disabled) .star-wrapper:hover ::content > span > span {
+            :host(:not([disabled])) .star-wrapper:hover span > span {
                 width: 100% !important;
             }
 
-            :host[invalid] {
+            :host([invalid]) {
               outline: red auto 5px;
             }
 
             /* Hide all after the hovered one */
-            :host:not(:disabled) .star-wrapper:hover ::content > span:hover ~ span > span {
+            :host(:not([disabled])) .star-wrapper:hover > span:hover ~ span > span {
                 width: 0 !important;
             }
 
         </style>
         <!-- local DOM goes here -->
         <div class="star-wrapper">
-        <template is="dom-repeat" items="{{_possibleValues}}"><!--
-        --><span on-tap="_starClicked" data-star-id$="{{index}}"><iron-icon icon={{icon}}></iron-icon><!--
-        --><span style$="width:[[_calculateWidth(index, value)]]"><iron-icon icon={{icon}}></iron-icon></span><!--
-            --></span><!--
-        --></template>
+            <template is="dom-repeat" items="{{_possibleValues}}"><!--
+                --><span on-tap="_starClicked" data-star-id$="{{index}}"><!--
+                    --><iron-icon icon={{icon}}></iron-icon><!--
+                    --><span style$="width:[[_calculateWidth(index, value)]]"><!--
+                        --><iron-icon icon={{icon}}></iron-icon><!--
+                    --></span><!--
+                --></span><!--
+            --></template>
         </div>
     </template>
 
     <script>
-    Polymer({
-        is: 'flexible-rating',
-        hostAttributes: {
-            role: 'slider',
-            tabindex: 0,
-            'aria-hidden': 'true'
-        },
-        keyBindings: {
-            'left down pagedown home': '_decrementKey',
-            'right up pageup end': '_incrementKey'
-        },
-        behaviors:
-          [
+        "use strict";
+        class FlexibleRating extends Polymer.mixinBehaviors([
             Polymer.IronFormElementBehavior,
             Polymer.IronValidatableBehavior,
             Polymer.IronA11yKeysBehavior,
             Polymer.IronControlState
-          ],
-        
-        properties: {
-            /**
-            *   The maximum number of stars possible.
-            */
-            max: {
-                type: Number,
-                value: 5,
-                notify: true
-            },
+        ], Polymer.Element) {
 
-            /**
-            *   The number of stars that are marked. Can be a float and can show partial stars.
-            */
-            value: {
-                type: Number,
-                value: 0,
-                notify: true,
-                reflectToAttribute: true
-            },
-
-            /**
-            *   The name of the iron icon element
-            **/
-            icon: {
-              type: String,
-              value: "icons:star"
-            },
-
-            _possibleValues: {
-              type: Array,
-              computed: '_computePossibleValues(max)'
+            static get is() {
+                return 'flexible-rating';
             }
-        },
-        observers: [
-            '_updateAria(value, max)'
-        ],
-        _updateAria: function(value, max) {
-            this.setAttribute('aria-valuemin', 1);
-            this.setAttribute('aria-valuemax', max);
-            this.setAttribute('aria-valuenow', value);
-        },
-        _updateValue: function(value) {
-            if (value < 1)
-                value = 1;
-            if (value > this.max)
-                value = this.max;
 
-            this.setAttribute('value', value);
-        },
-        _increment: function() {
-          this._updateValue(Math.floor(this.value) + 1);
-        },
-        _decrement: function() {
-            this._updateValue(Math.ceil(this.value) - 1);
-        },
-        _incrementKey: function(event) {
-          if (!this.disabled) {
-            event.detail.keyboardEvent.preventDefault();
-            if (event.detail.key === 'end') {
-              this._updateValue(this.max);
-            } else {
-              this._increment();
-            }
-          }
-        },
-        _decrementKey: function(event) {
-          if (!this.disabled) {
-            event.detail.keyboardEvent.preventDefault();
-            if (event.detail.key === 'home') {
-              this._updateValue(1);
-            } else {
-              this._decrement();
-            }
-          }
-        },
-        _getValidity: function(value) {
-            return this.value !== 0;
+            static get properties() {
+                return {
+                    /**
+                     *   The maximum number of stars possible.
+                     */
+                    max: {
+                        type: Number,
+                        value: 5,
+                        notify: true
+                    },
 
+                    /**
+                     *   The number of stars that are marked. Can be a float and can show partial stars.
+                     */
+                    value: {
+                        type: Number,
+                        value: 0,
+                        notify: true,
+                        reflectToAttribute: true
+                    },
 
-        },
-        ready: function() {
-        },
-        _computePossibleValues: function(max) {
-            values = [];
-            for (var i = 1; i <= max; i++) {
-                values.push(i);
-            }
-            return values;
-        },
-        _calculateWidth: function(star, value) {
-            if (value >= star + 1){
-                return "100%";
-            }
-            else if (value - star >= 0) {
-                return (value-star) * 100 + "%";
-            }
-            else return "0%";
-        },
-        _starClicked: function(e) {
-            if (this.disabled)
-                return;
+                    /**
+                     *   The name of the iron icon element
+                     **/
+                    icon: {
+                        type: String,
+                        value: "icons:star"
+                    },
 
-            var star;
-            if (e.currentTarget.dataset !== undefined)
-                star = parseInt(e.currentTarget.dataset.starId);
-            else
-                star = parseInt(e.currentTarget.getAttribute('data-star-id'));
-            this._updateValue(star + 1);
+                    _possibleValues: {
+                        type: Array,
+                        computed: '_computePossibleValues(max)'
+                    }
+                }
+            }
+
+            static get observers() {
+                return [
+                    '_updateAria(value, max)'
+                ]
+            }
+
+            get keyBindings() {
+                return {
+                    'left down pagedown home': '_decrementKey',
+                    'right up pageup end': '_incrementKey'
+                }
+            }
+
+            _updateAria(value, max) {
+                if (!(max === undefined || value === undefined)) {
+                    this.setAttribute('aria-valuemin', 1);
+                    this.setAttribute('aria-valuemax', max);
+                    this.setAttribute('aria-valuenow', value);
+                }
+            }
+
+            _updateValue(value) {
+                if (value < 1)
+                    value = 1;
+                if (value > this.max)
+                    value = this.max;
+
+                this.setAttribute('value', value);
+            }
+
+            _increment() {
+                this._updateValue(Math.floor(this.value) + 1);
+            }
+
+            _decrement() {
+                this._updateValue(Math.ceil(this.value) - 1);
+            }
+
+            _incrementKey(event) {
+                if (!this.disabled) {
+                    event.detail.keyboardEvent.preventDefault();
+                    if (event.detail.key === 'end') {
+                        this._updateValue(this.max);
+                    } else {
+                        this._increment();
+                    }
+                }
+            }
+
+            _decrementKey(event) {
+                if (!this.disabled) {
+                    event.detail.keyboardEvent.preventDefault();
+                    if (event.detail.key === 'home') {
+                        this._updateValue(1);
+                    } else {
+                        this._decrement();
+                    }
+                }
+            }
+
+            _getValidity(value) {
+                return this.value !== 0;
+            }
+
+            ready() {
+                this._ensureAttribute('role', 'slider');
+                this._ensureAttribute('tabindex', 0);
+                this._ensureAttribute('area-hidden', 'true');
+                super.ready();
+            }
+
+            _computePossibleValues(max) {
+                let values = [];
+                for (var i = 1; i <= max; i++) {
+                    values.push(i);
+                }
+                return values;
+            }
+
+            _calculateWidth(star, value) {
+                if (value >= star + 1) {
+                    return "100%";
+                }
+                else if (value - star >= 0) {
+                    return (value - star) * 100 + "%";
+                }
+                else return "0%";
+            }
+
+            _starClicked(e) {
+                if (this.disabled)
+                    return;
+
+                var star;
+                if (e.currentTarget.dataset !== undefined)
+                    star = parseInt(e.currentTarget.dataset.starId);
+                else
+                    star = parseInt(e.currentTarget.getAttribute('data-star-id'));
+                this._updateValue(star + 1);
+            }
+
         }
 
-    });
+        // Register custom element definition using standard platform API
+        customElements.define(FlexibleRating.is, FlexibleRating);
     </script>
 </dom-module>
