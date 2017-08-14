@@ -13,7 +13,7 @@ addons:
 before_script:
 - npm install -g bower polylint web-component-tester
 - bower install
-# Pause Polylint due to https://github.com/PolymerElements/iron-icon/issues/83
+# Pause Polylint due to lint errors in bower_components
 # - if [ "${TRAVIS_PULL_REQUEST}" != "false" ] || [ "${TRAVIS_BRANCH}" = "master" ];
 #   then polylint; fi
 script:
