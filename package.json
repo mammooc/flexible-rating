@@ -1,0 +1,63 @@
+{
+  "name": "flexible-rating",
+  "version": "2.0.0",
+  "description": "A Polymer element providing a clickable rating.",
+  "contributors": [
+    {
+      "name": "Paul Arndt"
+    },
+    {
+      "name": "Rosa Braatz"
+    },
+    {
+      "name": "Philipp Fischbeck"
+    },
+    {
+      "name": "Dominic Sauer"
+    },
+    {
+      "name": "Sebastian Serth"
+    }
+  ],
+  "keywords": [
+    "web-components",
+    "web-component",
+    "Polymer",
+    "star",
+    "rating"
+  ],
+  "main": "src/flexible-rating.html",
+  "homepage": "https://github.com/mammooc/flexible-rating#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mammooc/flexible-rating.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mammooc/flexible-rating/issues"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "polymer-bundler": "^3.0.0",
+    "web-component-tester": "^6.1.5",
+    "eslint": "^4.2.0",
+    "eslint-plugin-html": "^3.1.0",
+    "htmlhint": "^0.9.13",
+    "polymer-cli": "^1.4.0"
+  },
+  "scripts": {
+    "test": "node_modules/web-component-tester/bin/wct test/index.html",
+    "test-firefox": "node_modules/web-component-tester/bin/wct  test/index.html -l firefox",
+    "test-safari": "node_modules/web-component-tester/bin/wct  test/index.html -l safari",
+    "test-chrome": "node_modules/web-component-tester/bin/wct  test/index.html -l chrome",
+    "testdebugging": "node_modules/web-component-tester/bin/wct -p test/index.html",
+    "lint": "eslint src --ext .html --fix && htmlhint --config .htmlhintrc src/**/*.html video-player.html && polymer lint",
+    "postinstall": "bower install",
+    "serve": "polymer serve",
+    "bundle": "polymer build",
+    "deploy": "./utils/deploy.sh && ./utils/github-pages.sh mammooc flexible-rating && rm -rf ./utils/flexible-rating"
+  }
+}
