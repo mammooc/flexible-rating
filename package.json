@@ -42,7 +42,7 @@
   "dependencies": {},
   "devDependencies": {
     "polymer-bundler": "^3.0.0",
-    "web-component-tester": "^6.1.5",
+    "web-component-tester": "^6.0.0",
     "eslint": "^4.2.0",
     "eslint-plugin-html": "^3.1.0",
     "htmlhint": "^0.9.13",
@@ -54,7 +54,7 @@
     "test-safari": "node_modules/web-component-tester/bin/wct  test/index.html -l safari",
     "test-chrome": "node_modules/web-component-tester/bin/wct  test/index.html -l chrome",
     "testdebugging": "node_modules/web-component-tester/bin/wct -p test/index.html",
-    "lint": "eslint src --ext .html --fix && htmlhint --config .htmlhintrc src/**/*.html video-player.html && polymer lint",
+    "lint": "eslint src --ext .html --fix && htmlhint --config .htmlhintrc src/**/*.html index.html && polymer lint",
     "postinstall": "bower install",
     "serve": "polymer serve",
     "bundle": "polymer build",
