@@ -98,9 +98,9 @@ Custom property | Description | Default
         <div class="star-wrapper">
             <template is="dom-repeat" items="{{_possibleValues}}"><!--
                 --><span on-tap="_starClicked" data-star-id$="{{index}}"><!--
-                    --><iron-icon icon={{icon}}></iron-icon><!--
+                    --><iron-icon icon="{{icon}}"></iron-icon><!--
                     --><span style$="width:[[_calculateWidth(index, value)]]"><!--
-                        --><iron-icon icon={{icon}}></iron-icon><!--
+                        --><iron-icon icon="{{icon}}"></iron-icon><!--
                     --></span><!--
                 --></span><!--
             --></template>
@@ -108,7 +108,7 @@ Custom property | Description | Default
     </template>
 
     <script>
-        "use strict";
+        'use strict';
         class FlexibleRating extends Polymer.mixinBehaviors([
             Polymer.IronFormElementBehavior,
             Polymer.IronValidatableBehavior,
@@ -146,27 +146,27 @@ Custom property | Description | Default
                      **/
                     icon: {
                         type: String,
-                        value: "icons:star"
+                        value: 'icons:star'
                     },
 
                     _possibleValues: {
                         type: Array,
                         computed: '_computePossibleValues(max)'
                     }
-                }
+                };
             }
 
             static get observers() {
                 return [
                     '_updateAria(value, max)'
-                ]
+                ];
             }
 
             get keyBindings() {
                 return {
                     'left down pagedown home': '_decrementKey',
                     'right up pageup end': '_incrementKey'
-                }
+                };
             }
 
             _updateAria(value, max) {
@@ -216,7 +216,7 @@ Custom property | Description | Default
                 }
             }
 
-            _getValidity(value) {
+            _getValidity() {
                 return this.value !== 0;
             }
 
@@ -229,7 +229,7 @@ Custom property | Description | Default
 
             _computePossibleValues(max) {
                 let values = [];
-                for (var i = 1; i <= max; i++) {
+                for (let i = 1; i <= max; i++) {
                     values.push(i);
                 }
                 return values;
@@ -237,19 +237,17 @@ Custom property | Description | Default
 
             _calculateWidth(star, value) {
                 if (value >= star + 1) {
-                    return "100%";
-                }
-                else if (value - star >= 0) {
-                    return (value - star) * 100 + "%";
-                }
-                else return "0%";
+                    return '100%';
+                } else if (value - star >= 0) {
+                    return (value - star) * 100 + '%';
+                } else return '0%';
             }
 
             _starClicked(e) {
                 if (this.disabled)
                     return;
 
-                var star;
+                let star;
                 if (e.currentTarget.dataset !== undefined)
                     star = parseInt(e.currentTarget.dataset.starId);
                 else
