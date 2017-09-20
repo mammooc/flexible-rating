@@ -1,0 +1,34 @@
+{
+  "entrypoint": "src/flexible-rating.html",
+  "sources": [
+    "src/**/*",
+    "bower.json"
+  ],
+  "lint": {
+    "rules": [
+      "polymer-2"
+    ],
+    "ignoreWarnings": [
+      "unknown-superclass",
+      "set-unknown-attribute",
+      "databinding-calls-must-be-functions",
+      "databind-with-unknown-property"
+    ]
+  },
+  "builds": [
+    {
+      "name": "es6",
+      "bundle": true,
+      "js": {"minify": true},
+      "css": {"minify": true},
+      "html": {"minify": true}
+    },
+    {
+      "name": "es5",
+      "bundle": true,
+      "js": {"minify": true, "compile": true},
+      "css": {"minify": true},
+      "html": {"minify": true}
+    }
+  ]
+}

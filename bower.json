@@ -8,7 +8,7 @@
     "Dominic Sauer",
     "Sebastian Serth"
   ],
-  "main": "flexible-rating.html",
+  "main": "src/flexible-rating.html",
   "license": "MIT",
   "homepage": "https://github.com/mammooc/flexible-rating",
   "ignore": [
