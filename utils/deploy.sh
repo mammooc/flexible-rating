@@ -1,5 +1,5 @@
 #!/bin/bash -e
-npm version $1
+npm --no-git-tag-version version $1
 git push
 git push --tags
 ./utils/github-pages.sh mammooc flexible-rating
