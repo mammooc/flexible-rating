@@ -41,12 +41,12 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "polymer-bundler": "^3.0.0",
-    "web-component-tester": "^6.0.0",
-    "eslint": "^4.2.0",
+    "eslint": "^4.7.1",
     "eslint-plugin-html": "^3.1.0",
     "htmlhint": "^0.9.13",
-    "polymer-cli": "^1.4.0"
+    "polymer-bundler": "^3.0.0",
+    "polymer-cli": "^1.4.0",
+    "web-component-tester": "^6.2.0"
   },
   "scripts": {
     "test": "node_modules/web-component-tester/bin/wct test/index.html",
