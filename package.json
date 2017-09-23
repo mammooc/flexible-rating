@@ -26,7 +26,7 @@
     "star",
     "rating"
   ],
-  "main": "src/flexible-rating.html",
+  "main": "flexible-rating.html",
   "homepage": "https://github.com/mammooc/flexible-rating#readme",
   "repository": {
     "type": "git",
@@ -54,7 +54,7 @@
     "test-safari": "node_modules/web-component-tester/bin/wct  test/index.html -l safari",
     "test-chrome": "node_modules/web-component-tester/bin/wct  test/index.html -l chrome",
     "testdebugging": "node_modules/web-component-tester/bin/wct -p test/index.html",
-    "lint": "eslint src --ext .html --fix && htmlhint --config .htmlhintrc src/**/*.html index.html && polymer lint",
+    "lint": "eslint src --ext .html --fix && htmlhint --config .htmlhintrc src/**/*.html index.html flexible-rating.html && polymer lint",
     "postinstall": "bower install",
     "serve": "polymer serve",
     "bundle": "polymer build",
