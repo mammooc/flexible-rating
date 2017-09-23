@@ -1,5 +1,5 @@
 {
-  "entrypoint": "src/flexible-rating.html",
+  "entrypoint": "flexible-rating.html",
   "sources": [
     "src/**/*",
     "bower.json"
