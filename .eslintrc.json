@@ -45,5 +45,8 @@
     "define": false,
     "require": false,
     "exports": false
+  },
+  "parserOptions": {
+    "sourceType": "module"
   }
 }

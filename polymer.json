@@ -1,12 +1,12 @@
 {
-  "entrypoint": "flexible-rating.html",
+  "entrypoint": "flexible-rating.js",
   "sources": [
     "src/**/*",
-    "bower.json"
+    "package.json"
   ],
   "lint": {
     "rules": [
-      "polymer-2"
+      "polymer-3"
     ],
     "ignoreWarnings": [
       "unknown-superclass",
@@ -30,5 +30,7 @@
       "css": {"minify": true},
       "html": {"minify": true}
     }
-  ]
+  ],
+  "moduleResolution": "node",
+  "npm": true
 }
