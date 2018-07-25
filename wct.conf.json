@@ -126,7 +126,7 @@
         {
           "browserName": "safari",
           "platform": "OS X 10.12",
-          "version": "10.0"
+          "version": "10.1"
         },
         {
           "browserName": "chrome",

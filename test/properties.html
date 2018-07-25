@@ -2,10 +2,10 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
+    <script src="../../@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
     <script src="../../web-component-tester/browser.js"></script>
     <!-- import the element to test -->
-    <link rel="import" href="../src/flexible-rating.html">
+    <script type="module" src="../src/flexible-rating.js"></script>
   </head>
   <body>
     <test-fixture id="default">
@@ -20,9 +20,10 @@
           </flexible-rating>
         </template>
       </test-fixture>
-    <script>
+    <script type="module">
+      import '../src/flexible-rating.js';
       suite('<flexible-rating>', function() {
-        var valuesFixture, defaultFixture;
+        let valuesFixture, defaultFixture;
         setup(function() {
           valuesFixture = fixture('values');
           defaultFixture = fixture('default');

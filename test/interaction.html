@@ -2,11 +2,11 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <script src="../../webcomponentsjs/webcomponents-loader.js"></script>
-    <script src="../../web-component-tester/browser.js"></script>
-  <script src="../../iron-test-helpers/mock-interactions.js"></script>
+    <script src="../../@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+    <script src="../../wct-browser-legacy/browser.js"></script>
+  <script src="../../@polymer/iron-test-helpers/mock-interactions.js" type="module"></script>
     <!-- import the element to test -->
-    <link rel="import" href="../src/flexible-rating.html">
+    <script type="module" src="../src/flexible-rating.js"></script>
   </head>
   <body>
     <test-fixture id="editable">
@@ -21,7 +21,8 @@
           </flexible-rating>
         </template>
       </test-fixture>
-    <script>
+    <script type="module">
+      import '../src/flexible-rating.js';
       suite('<flexible-rating>', function() {
           /*suite('hovering', function() {
             var editableFixture, readOnlyFixture;
@@ -47,14 +48,14 @@
             });
           });*/
           suite('clicking', function() {
-              var editableFixture, readOnlyFixture;
+              let editableFixture, readOnlyFixture;
               setup(function() {
                 editableFixture = fixture('editable');
                 readOnlyFixture = fixture('read-only');
               });
               test("doesn't change the value for read-only elements", function(done) {
                   flush(function() {
-                      var stars = readOnlyFixture.root.querySelectorAll('.star-wrapper > span');
+                      const stars = readOnlyFixture.root.querySelectorAll('.star-wrapper > span');
                       MockInteractions.tap(stars[2]);
                       assert.equal(readOnlyFixture.value, 3.6);
                       done();
@@ -62,7 +63,7 @@
               });
               test("changes the value", function(done) {
                 flush(function() {
-                    var stars = editableFixture.root.querySelectorAll('.star-wrapper > span');
+                    const stars = editableFixture.root.querySelectorAll('.star-wrapper > span');
                     MockInteractions.tap(stars[2]);
                     assert.equal(editableFixture.value, 3);
                     done();
