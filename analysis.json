@@ -2,10 +2,31 @@
   "schema_version": "1.0.0",
   "elements": [
     {
-      "description": "An element providing a star rating that allows fractions.\n\nExample 1:\n\n    <flexible-rating value=\"3.6\" disabled=\"true\">\n    </flexible-rating>\n\nExample 2:\n\n    <flexible-rating value=\"4\" icon=\"icons:favorite\">\n    </flexible-rating>\n\n### Styling\n\n`<flexible-rating>` provides the following custom properties and mixins\nfor styling:\n\nCustom property | Description | Default\n----------------|-------------|----------\n`--flexible-rating-filled-color` | Fill color of the selected rating shapes | #ffac33\n`--flexible-rating-unfilled-color` | Fill color of remaining rating shapes | #ccd6dd\n`--iron-icon-height` | height of one icon (e.g. star) |\n`--iron-icon-width` | width of one icon (e.g. star) |",
+      "description": "An element providing a star rating that allows fractions.\n\nExample 1:\n\n<flexible-rating value=\"3.6\" disabled=\"true\">\n</flexible-rating>\n\nExample 2:\n\n<flexible-rating value=\"4\" icon=\"icons:favorite\">\n</flexible-rating>\n\n### Styling\n\n`<flexible-rating>` provides the following custom properties and mixins\nfor styling:\n\nCustom property | Description | Default\n----------------|-------------|----------\n`--flexible-rating-filled-color` | Fill color of the selected rating shapes | #ffac33\n`--flexible-rating-unfilled-color` | Fill color of remaining rating shapes | #ccd6dd\n`--iron-icon-height` | height of one icon (e.g. star) |\n`--iron-icon-width` | width of one icon (e.g. star) |",
       "summary": "",
-      "path": "src/flexible-rating.html",
+      "path": "src/flexible-rating.js",
       "properties": [
+        {
+          "name": "keyBindings",
+          "type": "?",
+          "description": "    ",
+          "privacy": "public",
+          "sourceRange": {
+            "start": {
+              "line": 170,
+              "column": 4
+            },
+            "end": {
+              "line": 175,
+              "column": 5
+            }
+          },
+          "metadata": {
+            "polymer": {
+              "readOnly": true
+            }
+          }
+        },
         {
           "name": "max",
           "type": "number",
@@ -13,17 +34,18 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 127,
-              "column": 20
+              "line": 128,
+              "column": 12
             },
             "end": {
-              "line": 131,
-              "column": 21
+              "line": 132,
+              "column": 13
             }
           },
           "metadata": {
             "polymer": {
-              "notify": true
+              "notify": true,
+              "attributeType": "Number"
             }
           },
           "defaultValue": "5"
@@ -35,17 +57,18 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 136,
-              "column": 20
+              "line": 138,
+              "column": 12
             },
             "end": {
-              "line": 141,
-              "column": 21
+              "line": 143,
+              "column": 13
             }
           },
           "metadata": {
             "polymer": {
-              "notify": true
+              "notify": true,
+              "attributeType": "Number"
             }
           },
           "defaultValue": "0"
@@ -57,37 +80,40 @@
           "privacy": "public",
           "sourceRange": {
             "start": {
-              "line": 146,
-              "column": 20
+              "line": 149,
+              "column": 12
             },
             "end": {
-              "line": 149,
-              "column": 21
+              "line": 152,
+              "column": 13
             }
           },
           "metadata": {
-            "polymer": {}
+            "polymer": {
+              "attributeType": "String"
+            }
           },
           "defaultValue": "\"icons:star\""
         },
         {
           "name": "_possibleValues",
-          "type": "Array",
+          "type": "Array | null | undefined",
           "description": "",
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 151,
-              "column": 20
+              "line": 154,
+              "column": 12
             },
             "end": {
-              "line": 154,
-              "column": 21
+              "line": 157,
+              "column": 13
             }
           },
           "metadata": {
             "polymer": {
-              "readOnly": true
+              "readOnly": true,
+              "attributeType": "Array"
             }
           }
         }
@@ -99,12 +125,12 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 171,
-              "column": 12
+              "line": 177,
+              "column": 4
             },
             "end": {
-              "line": 177,
-              "column": 13
+              "line": 183,
+              "column": 5
             }
           },
           "metadata": {},
@@ -115,7 +141,10 @@
             {
               "name": "max"
             }
-          ]
+          ],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "_updateValue",
@@ -123,12 +152,12 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 179,
-              "column": 12
+              "line": 185,
+              "column": 4
             },
             "end": {
-              "line": 186,
-              "column": 13
+              "line": 192,
+              "column": 5
             }
           },
           "metadata": {},
@@ -136,7 +165,10 @@
             {
               "name": "value"
             }
-          ]
+          ],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "_increment",
@@ -144,16 +176,19 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 188,
-              "column": 12
+              "line": 194,
+              "column": 4
             },
             "end": {
-              "line": 190,
-              "column": 13
+              "line": 196,
+              "column": 5
             }
           },
           "metadata": {},
-          "params": []
+          "params": [],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "_decrement",
@@ -161,16 +196,19 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 192,
-              "column": 12
+              "line": 198,
+              "column": 4
             },
             "end": {
-              "line": 194,
-              "column": 13
+              "line": 200,
+              "column": 5
             }
           },
           "metadata": {},
-          "params": []
+          "params": [],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "_incrementKey",
@@ -178,12 +216,12 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 196,
-              "column": 12
+              "line": 202,
+              "column": 4
             },
             "end": {
-              "line": 205,
-              "column": 13
+              "line": 211,
+              "column": 5
             }
           },
           "metadata": {},
@@ -191,7 +229,10 @@
             {
               "name": "event"
             }
-          ]
+          ],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "_decrementKey",
@@ -199,12 +240,12 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 207,
-              "column": 12
+              "line": 213,
+              "column": 4
             },
             "end": {
-              "line": 216,
-              "column": 13
+              "line": 222,
+              "column": 5
             }
           },
           "metadata": {},
@@ -212,7 +253,10 @@
             {
               "name": "event"
             }
-          ]
+          ],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "_getValidity",
@@ -220,12 +264,12 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 218,
-              "column": 12
+              "line": 224,
+              "column": 4
             },
             "end": {
-              "line": 220,
-              "column": 13
+              "line": 226,
+              "column": 5
             }
           },
           "metadata": {},
@@ -237,16 +281,19 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 222,
-              "column": 12
+              "line": 228,
+              "column": 4
             },
             "end": {
-              "line": 227,
-              "column": 13
+              "line": 233,
+              "column": 5
             }
           },
           "metadata": {},
-          "params": []
+          "params": [],
+          "return": {
+            "type": "void"
+          }
         },
         {
           "name": "_computePossibleValues",
@@ -254,12 +301,12 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 229,
-              "column": 12
+              "line": 235,
+              "column": 4
             },
             "end": {
-              "line": 235,
-              "column": 13
+              "line": 241,
+              "column": 5
             }
           },
           "metadata": {},
@@ -275,12 +322,12 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 237,
-              "column": 12
+              "line": 243,
+              "column": 4
             },
             "end": {
-              "line": 243,
-              "column": 13
+              "line": 249,
+              "column": 5
             }
           },
           "metadata": {},
@@ -299,12 +346,12 @@
           "privacy": "protected",
           "sourceRange": {
             "start": {
-              "line": 245,
-              "column": 12
+              "line": 251,
+              "column": 4
             },
             "end": {
-              "line": 255,
-              "column": 13
+              "line": 261,
+              "column": 5
             }
           },
           "metadata": {},
@@ -312,7 +359,10 @@
             {
               "name": "e"
             }
-          ]
+          ],
+          "return": {
+            "type": "void"
+          }
         }
       ],
       "staticMethods": [],
@@ -325,12 +375,12 @@
       "metadata": {},
       "sourceRange": {
         "start": {
-          "line": 111,
-          "column": 8
+          "line": 40,
+          "column": 0
         },
         "end": {
-          "line": 257,
-          "column": 9
+          "line": 262,
+          "column": 1
         }
       },
       "privacy": "public",
@@ -342,12 +392,12 @@
           "description": "The maximum number of stars possible.",
           "sourceRange": {
             "start": {
-              "line": 127,
-              "column": 20
+              "line": 128,
+              "column": 12
             },
             "end": {
-              "line": 131,
-              "column": 21
+              "line": 132,
+              "column": 13
             }
           },
           "metadata": {},
@@ -358,12 +408,12 @@
           "description": "The number of stars that are marked. Can be a float and can show partial stars.",
           "sourceRange": {
             "start": {
-              "line": 136,
-              "column": 20
+              "line": 138,
+              "column": 12
             },
             "end": {
-              "line": 141,
-              "column": 21
+              "line": 143,
+              "column": 13
             }
           },
           "metadata": {},
@@ -374,12 +424,12 @@
           "description": "The name of the iron icon element",
           "sourceRange": {
             "start": {
-              "line": 146,
-              "column": 20
+              "line": 149,
+              "column": 12
             },
             "end": {
-              "line": 149,
-              "column": 21
+              "line": 152,
+              "column": 13
             }
           },
           "metadata": {},

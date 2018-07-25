@@ -14,6 +14,7 @@
   "homepage": "https://github.com/mammooc/flexible-rating#readme",
   "name": "flexible-rating",
   "version": "2.0.3",
+  "flat": true,
   "contributors": [
     {
       "name": "Paul Arndt"
@@ -66,8 +67,8 @@
     "test-safari": "node_modules/web-component-tester/bin/wct  test/index.html -l safari",
     "test-chrome": "node_modules/web-component-tester/bin/wct  test/index.html -l chrome",
     "testdebugging": "node_modules/web-component-tester/bin/wct -p test/index.html",
-    "lint": "eslint src --ext .html --fix && htmlhint --config .htmlhintrc src/**/*.html index.html flexible-rating.html && polymer lint",
-    "serve": "polymer serve",
+    "lint": "eslint src --fix && htmlhint --config .htmlhintrc src/**/*.html index.html && polymer lint",
+    "serve": "polymer serve --module-resolution=node --npm",
     "bundle": "polymer build",
     "analyze": "polymer analyze > analysis.json",
     "deploy": "./utils/deploy.sh"
