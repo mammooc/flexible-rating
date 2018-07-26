@@ -29,21 +29,16 @@ git checkout --orphan gh-pages
 # remove all content
 git rm -rf -q .
 
-# use bower to install runtime deployment
-bower cache clean $repo # ensure we're getting the latest from the desired branch.
-git show origin/${branch}:bower.json > bower.json
-echo "{
-  \"directory\": \"components\"
-}
-" > .bowerrc
-bower install
-bower install $org/$repo#$branch
+# use npm to install runtime deployment
+git show origin/${branch}:package.json > package.json
+npm install --only=production
+npm install $org/$repo#$branch --force --only=production
 git checkout origin/${branch} -- demo
-rm -rf components/$repo/demo
-mv demo components/$repo/
+rm -rf node_modules/$repo/demo
+mv demo node_modules/$repo/
 
 # redirect by default to the component folder
-echo "<META http-equiv="refresh" content=\"0;URL=components/$repo/\">" >index.html
+echo "<META http-equiv="refresh" content=\"0;URL=node_modules/$repo/\">" >index.html
 
 # send it all to github
 git add -A .
