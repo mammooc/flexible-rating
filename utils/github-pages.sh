@@ -31,8 +31,18 @@ git rm -rf -q .
 
 # use npm to install runtime deployment
 git show origin/${branch}:package.json > package.json
-npm install --only=production
-npm install $org/$repo#$branch --force --only=production
+npm install --ignore-scripts
+npm install $org/$repo#$branch --force --ignore-scripts
+find node_modules -name "*.md" -type f -delete # Prevents build bug on GH pages
+find node_modules -name "*.exe" -type f -delete # Prevents binary warning on GH pages
+
+find . -type f -name "*.js" -print0 | xargs -0 sed -i '' -e "s/'@polymer\//'\/flexible-rating\/node_modules\/@polymer\//g"
+find . -type f -name "*.js" -print0 | xargs -0 sed -i '' -e "s/'@webcomponents\//'\/flexible-rating\/node_modules\/@webcomponents\//g"
+find . -type f -name "*.html" -print0 | xargs -0 sed -i '' -e "s/'@polymer\//'\/flexible-rating\/node_modules\/@polymer\//g"
+find . -type f -name "*.html" -print0 | xargs -0 sed -i '' -e "s/'@webcomponents\//'\/flexible-rating\/node_modules\/@webcomponents\//g"
+find . -type f -name "*.js" -print0 | xargs -0 sed -i '' -e "s/import 'marked\//import '\/flexible-rating\/node_modules\/marked\//g"
+find . -type f -name "*.js" -print0 | xargs -0 sed -i '' -e "s/import 'prismjs\//import '\/flexible-rating\/node_modules\/prismjs\//g"
+
 git checkout origin/${branch} -- demo
 rm -rf node_modules/$repo/demo
 mv demo node_modules/$repo/
