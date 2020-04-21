@@ -1,48 +1,60 @@
 <!doctype html>
 <html>
-  <head>
+<head>
     <meta charset="utf-8">
+    <meta content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes" name="viewport">
+
+    <title>properties test</title>
+
     <script src="../../@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
-    <script src="../../web-component-tester/browser.js"></script>
-    <!-- import the element to test -->
-    <script type="module" src="../src/flexible-rating.js"></script>
-  </head>
-  <body>
-    <test-fixture id="default">
-      <template>
+    <script src="../node_modules/@polymer/test-fixture/test-fixture.js"></script>
+    <script src="../node_modules/mocha/mocha.js"></script>
+    <script src="../node_modules/chai/chai.js"></script>
+    <script src="../node_modules/wct-mocha/wct-mocha.js"></script>
+
+    <script src="../src/flexible-rating.js" type="module"></script>
+</head>
+<body>
+<test-fixture id="default">
+    <template>
         <flexible-rating>
         </flexible-rating>
-      </template>
-    </test-fixture>
-      <test-fixture id="values">
-        <template>
-          <flexible-rating value="3.6" max="10" disabled>
-          </flexible-rating>
-        </template>
-      </test-fixture>
-    <script type="module">
-      import '../src/flexible-rating.js';
-      suite('<flexible-rating>', function() {
+    </template>
+</test-fixture>
+
+<test-fixture id="values">
+    <template>
+        <flexible-rating disabled max="10" value="3.6">
+        </flexible-rating>
+    </template>
+</test-fixture>
+
+<script type="module">
+    suite('<flexible-rating>', function () {
         let valuesFixture, defaultFixture;
-        setup(function() {
-          valuesFixture = fixture('values');
-          defaultFixture = fixture('default');
+        setup(function () {
+            valuesFixture = fixture('values');
+            defaultFixture = fixture('default');
         });
-        test('defines the "value" property', function() {
-          assert.equal(valuesFixture.value, 3.6);
+
+        test('defines the "value" property', function () {
+            assert.equal(valuesFixture.value, 3.6);
         });
-        test('defines the "max" property', function() {
-          assert.equal(valuesFixture.max, 10);
+
+        test('defines the "max" property', function () {
+            assert.equal(valuesFixture.max, 10);
         });
-        test('defines the "disabled" property', function() {
-          assert.equal(valuesFixture.disabled, true);
+
+        test('defines the "disabled" property', function () {
+            assert.equal(valuesFixture.disabled, true);
         });
-        test('defines the correct default property values', function() {
+
+        test('defines the correct default property values', function () {
             assert.equal(defaultFixture.value, 0);
             assert.equal(defaultFixture.max, 5);
             assert.equal(defaultFixture.disabled, false);
         });
-      });
-    </script>
-  </body>
+    });
+</script>
+</body>
 </html>

@@ -1,4 +1,6 @@
 {
+  "npm": true,
+  "moduleResolution": "node",
   "plugins": {
     "sauce": {
       "disabled": false,
