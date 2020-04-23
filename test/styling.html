@@ -49,7 +49,7 @@
             valuesFixture = fixture('values');
         });
 
-        test("has 'max' stars", function (done) {
+        test('has \'max\' stars', function (done) {
             flush(function () {
                 const stars = valuesFixture.root.querySelectorAll('.star-wrapper > span');
                 assert.equal(stars.length, 4);
@@ -57,7 +57,7 @@
             });
         });
 
-        test("shows 'value' amount of filled stars", function (done) {
+        test('shows \'value\' amount of filled stars', function (done) {
             flush(function () {
                 const stars = valuesFixture.root.querySelectorAll('.star-wrapper > span');
                 assertStarFill(stars[0], 1);
@@ -68,7 +68,7 @@
             });
         });
 
-        test("has correct style attributes", function (done) {
+        test('has correct style attributes', function (done) {
             flush(function () {
                 const stars = valuesFixture.root.querySelectorAll('.star-wrapper > span');
                 for (let i = 0; i < stars.length; i++) {

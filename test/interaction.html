@@ -62,7 +62,7 @@
                 readOnlyFixture = fixture('read-only');
             });
 
-            test("doesn't change the value for read-only elements", function (done) {
+            test('doesn\'t change the value for read-only elements', function (done) {
                 flush(function () {
                     const stars = readOnlyFixture.root.querySelectorAll('.star-wrapper > span');
                     MockInteractions.tap(stars[2]);
@@ -71,7 +71,7 @@
                 });
             });
 
-            test("changes the value", function (done) {
+            test('changes the value', function (done) {
                 flush(function () {
                     const stars = editableFixture.root.querySelectorAll('.star-wrapper > span');
                     MockInteractions.tap(stars[2]);
@@ -79,7 +79,7 @@
                     done();
                 });
             });
-        })
+        });
     });
 </script>
 </body>

@@ -248,7 +248,7 @@ class FlexibleRating extends mixinBehaviors([
         if (e.currentTarget.dataset !== undefined)
             star = parseInt(e.currentTarget.dataset.starId);
         else
-          star = parseInt(e.currentTarget.getAttribute('data-star-id'));
+            star = parseInt(e.currentTarget.getAttribute('data-star-id'));
         this._updateValue(star + 1);
     }
 }

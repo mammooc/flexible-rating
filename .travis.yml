@@ -6,8 +6,7 @@ addons:
   firefox: latest
   chrome: stable
   sauce_connect: true
-before_script: npm install -g polylint web-component-tester
-script: xvfb-run wct --module-resolution=node --npm
+script: xvfb-run wct
 env:
   global:
     - secure: IpeC2jaFIum5iNfKOBi9krsP4bCiINEahBv5K3f1pGaqDhCRTUMa+vX1k7i8OPWqPC8gVLPAoyAWY+uHOt2VslRpAlyVvWbCSDGVtNifKo7EfTPmnVgwO9+H+LE22Tor0lImckuT7suBGciZ5MJ5nubnzObldhwfXRBW8vCNwwcVFJbRkn89SxZ/2jVUqNUS4RYQsTu5U3SZSHHiB+hFW0Nxa1hUiK/iLDxrGU95JK4qvpJoe0I4dJHUOg38WDQVFKzHF5DslIIbnO1hPvTIUDVBLhY4qRCRTojU6oPsOzwbGS4CF4BslTRh/WjH8zbQ6uyibHPmD3blPaa0prs8PBL5HGrgHJxN8MuWuy+JLpi18jJRB7BI9ZcjTizr2AtuaQ8ArL0V9SoJJAgugTZN4z4NCoVqj6tQBaGDJhTUwH4+HSWDp0a2HAlAwznNgp+z2zpqr6uxeyyTUc/dlpAtHtu23s0nKMgTRD6kuu4Vo0wLhMiBWHus7r71/d9xW1CO3MeQ24wDB9f7DurwIeGbIIjTDp67Hj9/IByl+Nb5mV0DpoYcNm+ys9Kb8heF0+SGkMkuF1F4+lxvcCwEFthhwAaWaBxRIr/+z9sUxrkCfnq+uAugHIIsee/1yMx48xXE6BTmcPdJvt+SfetIA6zgij1MJr7ZsYqHmCxqEKkAiJw=

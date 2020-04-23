@@ -1,5 +1,5 @@
 {
-  "entrypoint": "flexible-rating.js",
+  "entrypoint": "src/flexible-rating.js",
   "sources": [
     "src/**/*.js"
   ],
@@ -9,12 +9,6 @@
   "lint": {
     "rules": [
       "polymer-3"
-    ],
-    "ignoreWarnings": [
-      "unknown-superclass",
-      "set-unknown-attribute",
-      "databinding-calls-must-be-functions",
-      "databind-with-unknown-property"
     ]
   },
   "moduleResolution": "node",

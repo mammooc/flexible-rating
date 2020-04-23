@@ -37,6 +37,7 @@
             normal = fixture('normal');
             disabled = fixture('disabled');
         });
+
         test('has aria role "slider"', function (done) {
             flush(function () {
                 assert.equal(normal.getAttribute('role'), 'slider');

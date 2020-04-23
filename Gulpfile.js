@@ -7,6 +7,7 @@ const clean = require('gulp-clean');
 const minify = require('gulp-terser-js');
 const minifyHtml = require('minify-html-literals');
 const concat = require('gulp-concat');
+const rename = require('gulp-rename');
 const insert = require('gulp-insert');
 const merge = require('merge-stream');
 const intoStream = require('into-stream');
@@ -73,8 +74,8 @@ const bundle = (options) => {
                         }
                     ]
                 ]
-            // Compile = false; Keeping ES6 syntax, but changing module syntax.
-            // This step is usually not included but required for Xikolo asset precompilation
+                // Compile = false; Keeping ES6 syntax, but changing module syntax.
+                // This step is usually not included but required for Xikolo asset precompilation
             }), babel({
                 presets: [
                     [
@@ -106,8 +107,7 @@ const bundle = (options) => {
                 rollupResolve({
                     mainFields: ['module', 'jsnext', 'main']
                 }),
-                rollupCommonjs({
-                })
+                rollupCommonjs({})
             ]
         }))
         .pipe(minify({
@@ -119,6 +119,7 @@ const bundle = (options) => {
             }
         }))
         .pipe(insert.prepend(`/* ${packageJson.name} v${packageJson.version} */\n`))
+        .pipe(rename({ dirname: '', basename: packageJson.name }))
         .pipe(gulp.dest(options.dest));
 };
 
