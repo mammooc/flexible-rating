@@ -1,45 +1,46 @@
-
-import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
-
 import '@polymer/polymer/lib/elements/dom-repeat.js';
-import '@polymer/polymer/lib/elements/custom-style.js';
-import { IronFormElementBehavior } from '@polymer/iron-form-element-behavior/iron-form-element-behavior.js';
+import '@polymer/iron-icons/iron-icons.js';
+import { PolymerElement, html } from '@polymer/polymer';
+import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js';
 import { IronValidatableBehavior } from '@polymer/iron-validatable-behavior/iron-validatable-behavior.js';
 import { IronA11yKeysBehavior } from '@polymer/iron-a11y-keys-behavior/iron-a11y-keys-behavior.js';
 import { IronControlState } from '@polymer/iron-behaviors/iron-control-state.js';
-import '@polymer/iron-icons/iron-icons.js';
-import { mixinBehaviors } from '@polymer/polymer/lib/legacy/class.js';
 
 /**
-An element providing a star rating that allows fractions.
-
-Example 1:
-
-<flexible-rating value="3.6" disabled="true">
-</flexible-rating>
-
-Example 2:
-
-<flexible-rating value="4" icon="icons:favorite">
-</flexible-rating>
-
-### Styling
-
-`<flexible-rating>` provides the following custom properties and mixins
-for styling:
-
-Custom property | Description | Default
-----------------|-------------|----------
-`--flexible-rating-filled-color` | Fill color of the selected rating shapes | #ffac33
-`--flexible-rating-unfilled-color` | Fill color of remaining rating shapes | #ccd6dd
-`--iron-icon-height` | height of one icon (e.g. star) |
-`--iron-icon-width` | width of one icon (e.g. star) |
-
-@demo demo/index.html
-@element flexible-rating
-*/
+ * ## `flexible-rating`
+ *
+ * An element providing a star rating that allows fractions.
+ *
+ * ### Example 1:
+ *
+ * ``` html
+ * <flexible-rating value="3.6" disabled="true">
+ * </flexible-rating>
+ * ```
+ *
+ * ### Example 2:
+ *
+ * ``` html
+ * <flexible-rating value="4" icon="icons:favorite">
+ * </flexible-rating>
+ * ```
+ *
+ * ### Styling
+ *
+ * `<flexible-rating>` provides the following custom properties and mixins for styling:
+ *
+ * Custom property | Description | Default
+ * ----------------|-------------|----------
+ * `--flexible-rating-filled-color` | Fill color of the selected rating shapes | #ffac33
+ * `--flexible-rating-unfilled-color` | Fill color of remaining rating shapes | #ccd6dd
+ * `--iron-icon-height` | height of one icon (e.g. star) |
+ * `--iron-icon-width` | width of one icon (e.g. star) |
+ *
+ * @polymer
+ * @customElement
+ * @demo demo/index.html
+ */
 class FlexibleRating extends mixinBehaviors([
-    IronFormElementBehavior,
     IronValidatableBehavior,
     IronA11yKeysBehavior,
     IronControlState
@@ -102,16 +103,16 @@ class FlexibleRating extends mixinBehaviors([
             }
 
         </style>
-        <!-- local DOM goes here -->
+
         <div class="star-wrapper">
-            <template is="dom-repeat" items="{{_possibleValues}}"><!--
-                --><span on-tap="_starClicked" data-star-id\$="{{index}}"><!--
-                    --><iron-icon icon="{{icon}}"></iron-icon><!--
-                    --><span style\$="width:[[_calculateWidth(index, value)]]"><!--
-                        --><iron-icon icon="{{icon}}"></iron-icon><!--
-                    --></span><!--
-                --></span><!--
-            --></template>
+            <template is="dom-repeat" items="{{_possibleValues}}">
+                <span on-tap="_starClicked" data-star-id\$="{{index}}">
+                    <iron-icon icon="{{icon}}"></iron-icon>
+                    <span style\$="width:[[_calculateWidth(index, value)]]">
+                        <iron-icon icon="{{icon}}"></iron-icon>
+                    </span>
+                </span>
+            </template>
         </div>
 `;
     }
@@ -122,36 +123,24 @@ class FlexibleRating extends mixinBehaviors([
 
     static get properties() {
         return {
-          /**
-           *   The maximum number of stars possible.
-           *   @type {number}
-           */
+            /** The maximum number of stars possible. */
             max: {
                 type: Number,
                 value: 5,
                 notify: true
             },
-
-          /**
-           *   The number of stars that are marked. Can be a float and can show partial stars.
-           *   @type {number}
-           */
+            /** The number of stars that are marked. Can be a float and can show partial stars. */
             value: {
                 type: Number,
                 value: 0,
                 notify: true,
                 reflectToAttribute: true
             },
-
-          /**
-           *   The name of the iron icon element
-           *   @type {string}
-           **/
+            /** The name of the iron icon element */
             icon: {
                 type: String,
                 value: 'icons:star'
             },
-
             _possibleValues: {
                 type: Array,
                 computed: '_computePossibleValues(max)'
@@ -163,6 +152,18 @@ class FlexibleRating extends mixinBehaviors([
         return [
             '_updateAria(value, max)'
         ];
+    }
+
+    /**
+     * This is called by Polymer after the component instance is attached to the document.
+     * @callback connectedCallback
+     * @returns {void}
+     */
+    connectedCallback() {
+        super.connectedCallback();
+        this._ensureAttribute('role', 'slider');
+        this._ensureAttribute('tabindex', 0);
+        this._ensureAttribute('area-hidden', 'true');
     }
 
     get keyBindings() {
@@ -223,13 +224,6 @@ class FlexibleRating extends mixinBehaviors([
         return this.value !== 0;
     }
 
-    ready() {
-        this._ensureAttribute('role', 'slider');
-        this._ensureAttribute('tabindex', 0);
-        this._ensureAttribute('area-hidden', 'true');
-        super.ready();
-    }
-
     _computePossibleValues(max) {
         let values = [];
         for (let i = 1; i <= max; i++) {
@@ -254,7 +248,7 @@ class FlexibleRating extends mixinBehaviors([
         if (e.currentTarget.dataset !== undefined)
             star = parseInt(e.currentTarget.dataset.starId);
         else
-          star = parseInt(e.currentTarget.getAttribute('data-star-id'));
+            star = parseInt(e.currentTarget.getAttribute('data-star-id'));
         this._updateValue(star + 1);
     }
 }

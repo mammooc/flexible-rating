@@ -1,96 +1,98 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <script src="../../@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
-        <script type="module" src="../../@polymer/polymer/polymer-element.js"></script>
-        <script type="module" src="../../@polymer/iron-demo-helpers/demo-snippet.js"></script>
-        <script type="module" src="../../@polymer/iron-demo-helpers/demo-pages-shared-styles.js"></script>
-        <script type="module" src="../src/flexible-rating.js"></script>
-        <!-- FIXME(polymer-modulizer):
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes" name="viewport">
+
+    <title>flexible-rating demo</title>
+
+    <script src="../../@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
+
+    <script src="../../@polymer/polymer/polymer-element.js" type="module"></script>
+    <script src="../../@polymer/iron-demo-helpers/demo-pages-shared-styles.js" type="module"></script>
+    <script src="../../@polymer/iron-demo-helpers/demo-snippet.js" type="module"></script>
+    <script type="module" src="../src/flexible-rating.js"></script>
+
+    <!-- Bug fix by polymer-modulizer:
         These imperative modules that innerHTML your HTML are
         a hacky way to be sure that any mixins in included style
         modules are ready before any elements that reference them are
         instantiated, otherwise the CSS @apply mixin polyfill won't be
         able to expand the underlying CSS custom properties.
         See: https://github.com/Polymer/polymer-modulizer/issues/154
-        -->
-        <script type="module">
-            const $_documentContainer = document.createElement('template');
+    -->
+    <script type="module">
+        import { html } from '@polymer/polymer/lib/utils/html-tag.js';
 
-            $_documentContainer.innerHTML = `<custom-style>
-                <style include="demo-pages-shared-styles">
-                    .vertical-section-container {
-                      max-width: 500px;
-                    }
-                </style>
-            </custom-style>`;
+        const template = html`<custom-style>
+            <style include="demo-pages-shared-styles">
+                .vertical-section-container {
+                  max-width: 500px;
+                }
+            </style>
+        </custom-style>`;
 
-            document.body.appendChild($_documentContainer.content);
-        </script>
-    </head>
-    <body>
-        <script type="module">
-            const $_documentContainer = document.createElement('template');
+        document.body.appendChild(template.content);
+    </script>
+</head>
 
-            $_documentContainer.innerHTML = `<div class="vertical-section-container centered">
-                <h4>A disabled rating</h4>
-                <demo-snippet class="centered-demo">
-                      <template>
-                        <flexible-rating value="3.6" disabled="">
-                        </flexible-rating>
-                      </template>
-                </demo-snippet>
-                <h4>An editable rating</h4>
-                <demo-snippet class="centered-demo">
-                      <template>
-                        <flexible-rating>
-                        </flexible-rating>
-                      </template>
-                </demo-snippet>
-                <h4>A rating with a custom icon</h4>
-                <demo-snippet class="centered-demo">
-                      <template>
-                        <flexible-rating icon="icons:favorite">
-                        </flexible-rating>
-                      </template>
-                </demo-snippet>
-                <h4>A rating with custom colors</h4>
-                <demo-snippet class="centered-demo">
-                    <template>
-                        <custom-style>
-                            <style>
-                                flexible-rating.customColors {
-                                    --flexible-rating-filled-color: green;
-                                    --flexible-rating-unfilled-color: lightgreen;
-                                }
-                            </style>
-                        </custom-style>
+<body>
+<div class="vertical-section-container centered">
+    <h4>A disabled rating</h4>
+    <demo-snippet class="centered-demo">
+        <template>
+            <flexible-rating value="3.6" disabled="">
+            </flexible-rating>
+        </template>
+    </demo-snippet>
 
-                      <flexible-rating class="customColors" value="3.6" disabled="">
-                      </flexible-rating>
-                    </template>
-                </demo-snippet>
-                <h4>A rating with custom size</h4>
-                <demo-snippet class="centered-demo">
-                    <template>
-                        <custom-style>
-                            <style>
-                                flexible-rating.customSize {
-                                    --iron-icon-height: 50px;
-                                    --iron-icon-width: 50px;
-                                }
-                            </style>
-                        </custom-style>
+    <h4>An editable rating</h4>
+    <demo-snippet class="centered-demo">
+        <template>
+            <flexible-rating>
+            </flexible-rating>
+        </template>
+    </demo-snippet>
 
-                        <flexible-rating class="customSize" value="3.6" disabled="">
-                        </flexible-rating>
-                    </template>
-                </demo-snippet>
-            </div>`;
+    <h4>A rating with a custom icon</h4>
+    <demo-snippet class="centered-demo">
+        <template>
+            <flexible-rating icon="icons:favorite">
+            </flexible-rating>
+        </template>
+    </demo-snippet>
 
-            document.body.appendChild($_documentContainer.content);
-        </script>
-    </body>
+    <h4>A rating with custom colors</h4>
+    <demo-snippet class="centered-demo">
+        <template>
+            <style>
+                flexible-rating.customColors {
+                    --flexible-rating-filled-color: green;
+                    --flexible-rating-unfilled-color: lightgreen;
+                }
+            </style>
 
+            <flexible-rating class="customColors" value="3.6" disabled="">
+            </flexible-rating>
+        </template>
+    </demo-snippet>
+
+    <h4>A rating with custom size</h4>
+    <demo-snippet class="centered-demo">
+        <template>
+            <style>
+                flexible-rating.customSize {
+                    --iron-icon-height: 50px;
+                    --iron-icon-width: 50px;
+                }
+            </style>
+
+            <flexible-rating class="customSize" value="3.6" disabled="">
+            </flexible-rating>
+        </template>
+    </demo-snippet>
+</div>
+</body>
 
 </html>

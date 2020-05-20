@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes" name="viewport">
+
+    <title>Build demo</title>
+
+    <script src="../build/es5/polyfills-ie.js"></script>
+    <script src="../build/es5/custom-elements-es5-adapter.js"></script>
+    <script src="../build/es5/webcomponents-bundle.js"></script>
+
+    <script>
+        // eslint-disable-next-line no-var
+        var script = document.createElement('script');
+        if (location.href.indexOf('es5') > -1) {
+            script.src = '../build/es5/flexible-rating.js';
+        } else {
+            script.src = '../build/es6/flexible-rating.js';
+        }
+        // Never import the script as an ES6 module. The integration of Plotly.js into the
+        // same bundle file prevents that as a top-level `this` is undefined inside a module
+        document.head.appendChild(script);
+    </script>
+
+    <style>
+        /* Look nice and similar to the Polymer demo pages */
+        body {
+            font-family: 'Roboto', 'Noto', sans-serif;
+            font-size: 14px;
+        }
+
+        pre {
+            display: inline;
+        }
+    </style>
+</head>
+
+<body>
+<div class="vertical-section-container centered">
+    <h1>all-imports demo for <a href="?type=es6">ES6</a> (default) or <a href="?type=es5">ES5</a></h1>
+    <div>
+        This page uses the JavaScript file located in the <pre>build</pre> folder. You might need to create these with <pre>npm run bundle</pre> first. <span id="current_es_version"></span>
+    </div>
+
+    <h4>A disabled rating</h4>
+    <flexible-rating value="3.6" disabled="">
+    </flexible-rating>
+
+    <h4>An editable rating</h4>
+    <flexible-rating>
+    </flexible-rating>
+
+    <h4>A rating with a custom icon</h4>
+    <flexible-rating icon="icons:favorite">
+    </flexible-rating>
+
+    <h4>A rating with custom colors</h4>
+    <custom-style> <!-- custom-style tag is required as Polyfill for otherwise unsupported browsers, such as IE 11 -->
+        <style>
+            flexible-rating.customColors {
+                --flexible-rating-filled-color: green;
+                --flexible-rating-unfilled-color: lightgreen;
+            }
+        </style>
+    </custom-style>
+
+    <flexible-rating class="customColors" value="3.6" disabled="">
+    </flexible-rating>
+
+    <h4>A rating with custom size</h4>
+    <custom-style> <!-- custom-style tag is required as Polyfill for otherwise unsupported browsers, such as IE 11 -->
+        <style>
+            flexible-rating.customSize {
+                --iron-icon-height: 50px;
+                --iron-icon-width: 50px;
+            }
+        </style>
+    </custom-style>
+
+    <flexible-rating class="customSize" value="3.6" disabled="">
+    </flexible-rating>
+</div>
+
+<script>
+    // eslint-disable-next-line no-var
+    var version = document.querySelector('#current_es_version');
+    if (location.href.indexOf('es5') > -1) {
+        version.innerHTML = 'You\'re currently using <b>ES5</b> syntax.';
+    } else {
+        version.innerHTML = 'You\'re currently using <b>ES6</b> syntax.';
+    }
+</script>
+
+</body>
+
+</html>
