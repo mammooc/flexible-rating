@@ -1,5 +1,5 @@
 # flexible-rating
-[![Build Status](https://travis-ci.org/mammooc/flexible-rating.svg?branch=master)](https://travis-ci.org/mammooc/flexible-rating)
+[![Build Status](https://travis-ci.com/mammooc/flexible-rating.svg?branch=master)](https://travis-ci.com/mammooc/flexible-rating)
 
 [![Sauce Test Status](https://saucelabs.com/browser-matrix/mammooc-rating.svg)](https://saucelabs.com/u/mammooc-rating)
 
